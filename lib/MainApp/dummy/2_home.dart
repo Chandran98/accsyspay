@@ -1,14 +1,15 @@
 import 'package:Accsys_Pay/pages/screens.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Models/wallet_model.dart';
-import '../Theme/colors/colors.dart';
 import '../component/banner_widget.dart';
 import '../component/home_screen_widgets.dart';
 import '../component/services_widget.dart';
@@ -22,6 +23,7 @@ import '../provider/dth_provider.dart';
 import '../provider/themeprovider.dart';
 import '../provider/wallet_provider.dart';
 import '../utils/Internet connectivity/Network_status.dart';
+import '../utils/charts/Transaction_chart.dart';
 import '../utils/dragable_switch.dart';
 import '../utils/main_app_utils.dart';
 
@@ -80,6 +82,7 @@ class _HomeSideState extends State<HomeSide> {
     }
   }
 
+  bool balance = false;
   @override
   Widget build(BuildContext context) {
     var balanceProvider = Provider.of<WalletProvider>(context, listen: false);
@@ -107,7 +110,7 @@ class _HomeSideState extends State<HomeSide> {
                 child: Column(
                   children: [
                     Container(
-                      height: 35.h,
+                      height: 45.h,
                       color: appColor,
                       child: Column(
                         children: [
@@ -124,7 +127,7 @@ class _HomeSideState extends State<HomeSide> {
                                       text: TextSpan(
                                           text: "${_getGreetingMessage()}\n",
                                           style: GoogleFonts.inter(
-                                              fontSize: 21.sp,
+                                              fontSize: 18.sp,
                                               fontWeight: FontWeight.w500,
                                               color: whiteColor),
                                           children: <TextSpan>[
@@ -139,6 +142,7 @@ class _HomeSideState extends State<HomeSide> {
                                         )
                                       ])),
                                 ),
+
                                 Expanded(
                                   flex: 1,
                                   child: Container(
@@ -177,63 +181,224 @@ class _HomeSideState extends State<HomeSide> {
                               ],
                             ),
                           ),
-                          spacer40Height,
+                          // spacer20Height,
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  // color: theme.darkTheme
-                                  //     ? Colors.black
-                                  //     : Colors.grey.shade100,
-                                  borderRadius: BorderRadius.circular(8)),
-                              // color: white,
-                              // height: 145,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Text(
-                                    //   "Recommended",
-                                    //   style: GoogleFonts.inter(
-                                    //       fontSize: 13.sp,
-                                    //       fontWeight: FontWeight.w600),
-                                    // ),
-                                    // spacer10Height,
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        AddMoneyWidget(
-                                          image: 'assets/icons/1.png',
-                                          title: "Add Money",
-                                          page: const AddMoneyScreen2(),
-                                        ),
-                                        AddMoneyWidget(
-                                          image: 'assets/icons/2.png',
-                                          title: "Send",
-                                          // page: QrImageScan(),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 18.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // Text(
+                                      //   "Total Balance",
+                                      //   style: GoogleFonts.inter(
+                                      //       // color: Colors.grey,
+                                      //       fontSize: 12.sp,
+                                      //       fontWeight: FontWeight.w600),
+                                      // ),
 
-                                          page: const AddMoneyScreen2(),
-                                        ),
-                                        AddMoneyWidget(
-                                          image: 'assets/icons/3.png',
-                                          title: "Voucher",
-                                          page: ReceiverScreen(),
-                                        ),
-                                        AddMoneyWidget(
-                                          image: 'assets/icons/4.png',
-                                          title: "History",
-                                          page:
-                                              const TransactionHistoryScreen(),
-                                        ),
-                                      ],
+                                      Row(
+                                        children: [
+                                          // Text('Balance '),
+                                          Text(
+                                            // balance == "null"
+                                            //     ? "-----"
+                                            //     :
+                                            balance
+                                                ? "₹ ${balanceProvider.balance.toString() == "null" ? "0" : balanceProvider.balance.toString()}"
+                                                : "₹ *****",
+                                            style: GoogleFonts.inter(
+                                                color: whiteColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                balance = !balance;
+                                              });
+                                            },
+                                            icon: balance
+                                                ? const Icon(
+                                                    FeatherIcons.eye,
+                                                    color: whiteColor,
+                                                    size: 20,
+                                                  )
+                                                : const Icon(
+                                                    FeatherIcons.eyeOff,
+                                                    color: whiteColor,
+                                                    size: 20,
+                                                  ),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              height: 8.h,
+                                              width: 40.w,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color: whiteColor
+                                                      .withOpacity(0.4)),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "Income",
+                                                        style:
+                                                            GoogleFonts.inter(
+                                                                color:
+                                                                    whiteColor,
+                                                                fontSize: 10.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                      ),
+                                                    ),
+                                                    // spacer10Height,
+                                                    Expanded(
+                                                      child: Text(
+                                                        // balance == "null"
+                                                        //     ? "-----"
+                                                        //     :
+                                                        balance
+                                                            ? "₹ ${balanceProvider.totalInflowAmount.toString() == "null" ? "0" : balanceProvider.totalInflowAmount}"
+                                                            : "₹ *****",
+                                                        style:
+                                                            GoogleFonts.inter(
+                                                                color:
+                                                                    whiteColor,
+                                                                fontSize: 14.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          spacer10Width,
+                                          Expanded(
+                                            child: Container(
+                                              height: 8.h,
+                                              width: 40.w,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color: whiteColor
+                                                      .withOpacity(0.4)),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "Expense",
+                                                        style:
+                                                            GoogleFonts.inter(
+                                                                color:
+                                                                    whiteColor,
+                                                                fontSize: 10.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                      ),
+                                                    ),
+                                                    // spacer10Height,
+                                                    Expanded(
+                                                      child: Text(
+                                                        // balance == "null"
+                                                        //     ? "-----"
+                                                        //     :
+                                                        balance
+                                                            ? "₹ ${balanceProvider.totalOutflowAmount.toString() == "null" ? "0" : balanceProvider.totalOutflowAmount}"
+                                                            : "₹ *****",
+                                                        style:
+                                                            GoogleFonts.inter(
+                                                                color:
+                                                                    whiteColor,
+                                                                fontSize: 14.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          spacer10Height,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5.0, horizontal: 15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Text(
+                                //   "Recommended",
+                                //   style: GoogleFonts.inter(
+                                //       fontSize: 13.sp,
+                                //       fontWeight: FontWeight.w600),
+                                // ),
+                                // spacer10Height,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    AddMoneyWidget(
+                                      image: 'assets/icons/1.png',
+                                      title: "Add",
+                                      page: const AddMoneyScreen2(),
                                     ),
-                                    // spacer10Height,
+                                    AddMoneyWidget(
+                                      image: 'assets/icons/2.png',
+                                      title: "Send",
+                                      // page: QrImageScan(),
+
+                                      page: const AddMoneyScreen2(),
+                                    ),
+                                    AddMoneyWidget(
+                                      image: 'assets/icons/3.png',
+                                      title: "Voucher",
+                                      page: ReceiverScreen(),
+                                    ),
+                                    AddMoneyWidget(
+                                      image: 'assets/icons/4.png',
+                                      title: "History",
+                                      page: const TransactionHistoryScreen(),
+                                    ),
                                   ],
                                 ),
-                              ),
+                                // spacer10Height,
+                              ],
                             ),
                           ),
                         ],
