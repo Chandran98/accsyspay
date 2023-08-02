@@ -72,7 +72,9 @@ class _ServiceHistoryScreenState extends State<ServiceHistoryScreen> {
                   itemBuilder: (context, index) {
                     final data = serviceProvider
                         .transactionHistory[index].details[index];
-                    return InkWell(
+                    return 
+                    
+                    InkWell(
                       onTap: () {
                         Navigator.push(
                             context,

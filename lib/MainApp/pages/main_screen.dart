@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../pages/screens.dart';
 import '../dummy/2_home.dart';
+import '../dummy/3_chart.dart';
 import '../provider/service_history_provider.dart';
 import 'wallet_history/transaction_history_screen.dart';
 import '../utils/Internet connectivity/Network_status.dart';
@@ -22,10 +23,11 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    // HomeScreen(),
+    HomeScreen(),
     HomeSide(),
-    MobileRechargeScreen(),
-    ServiceHistoryScreen(),
+    // MobileRechargeScreen(),
+    // ServiceHistoryScreen(),
+    ExpenseChartScreen(),
     SettingScreen()
   ];
   @override
