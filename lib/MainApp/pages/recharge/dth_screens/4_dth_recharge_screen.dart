@@ -5,6 +5,7 @@ import 'package:Accsys_Pay/MainApp/provider/utilty_provider.dart';
 import 'package:Accsys_Pay/MainApp/provider/wallet_provider.dart';
 import 'package:Accsys_Pay/MainApp/utils/main_app_utils.dart';
 import 'package:Accsys_Pay/pages/screens.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
@@ -53,9 +54,8 @@ class _DthRechargeScreenState extends State<DthRechargeScreen> {
   final _pinController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var wallet = Provider.of<WalletProvider>(context);
-
     var verfiy = Provider.of<AuthProvider>(context);
+    var wallet = Provider.of<WalletProvider>(context);
     var theme = Provider.of<ThemeProvider>(context);
     var dthRecharge = Provider.of<DthProvider>(context);
     var fastagProvider = Provider.of<UtilityProvider>(context);
@@ -143,7 +143,7 @@ class _DthRechargeScreenState extends State<DthRechargeScreen> {
                           ),
                           spacer5Height,
                           Text(
-                            "Pay your bills & Recharge safely with Accsys Pay",
+                            "Pay your bills & Recharge safely with Vairaa Pay",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.grey,
@@ -573,250 +573,340 @@ class _DthRechargeScreenState extends State<DthRechargeScreen> {
                   //     ],
                   //   ),
                   // ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  verfiy.pinData == null
-                      ? InkWell(
-                          borderRadius: BorderRadius.circular(5.0),
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text("Enter Your Pin "),
-                                    content: Container(
-                                      // color: white,
-                                      child: TextFormField(
-                                        keyboardType: TextInputType.number,
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return Utils.toastMessage(
-                                                "Please enter the amount");
-                                          }
-                                          return null;
-                                        },
-                                        decoration: const InputDecoration(
-                                            // border: InputBorder.none,
-                                            ),
-                                        cursorColor: appColor,
-                                        style: const TextStyle(
-                                            fontSize: 32,
-                                            fontWeight: FontWeight.w600),
-                                        controller: _pinController,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      height: 50,
-                                      width: 200,
-                                    ),
-                                    actions: [
-                                      InkWell(
-                                        onTap: () {
-                                          verfiy.verifyYourPin(
-                                              _pinController.text, context);
-                                        },
-                                        child: Container(
-                                          height: 35,
-                                          width: 80,
-                                          decoration: BoxDecoration(
-                                              color: appColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(4)),
-                                          child: verfiy.loading
-                                              ? const CircularProgressIndicator(
-                                                  color: white,
-                                                )
-                                              : const Center(
-                                                  child: Text(
-                                                  "submit",
-                                                  style:
-                                                      TextStyle(color: white),
-                                                )),
-                                          // color: appColor,
-                                        ),
-                                      )
-                                    ],
-                                  );
-                                });
-                          },
-                          child: Container(
-                            height: 7.3.h,
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(fixPadding * 1.2),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: PrimaryColor,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Text("Proceed",
-                                style: GoogleFonts.inter(
-                                  color: white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  //: 'NunitoSans',
-                                )),
-                          ),
-                        )
-                      : verfiy.pinData.status == "success"
-                          ? SizedBox()
-                          : InkWell(
-                              borderRadius: BorderRadius.circular(5.0),
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text("Enter Your Pin "),
-                                        content: Container(
-                                          // color: white,
-                                          child: TextFormField(
-                                            keyboardType: TextInputType.number,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return Utils.toastMessage(
-                                                    "Please enter the amount");
-                                              }
-                                              return null;
-                                            },
-                                            decoration: const InputDecoration(
-                                                // border: InputBorder.none,
-                                                ),
-                                            cursorColor: appColor,
-                                            style: const TextStyle(
-                                                fontSize: 32,
-                                                fontWeight: FontWeight.w600),
-                                            controller: _pinController,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          height: 50,
-                                          width: 200,
-                                        ),
-                                        actions: [
-                                          InkWell(
-                                            onTap: () {
-                                              verfiy.verifyYourPin(
-                                                  _pinController.text, context);
-                                            },
-                                            child: Container(
-                                              height: 35,
-                                              width: 80,
-                                              decoration: BoxDecoration(
-                                                  color: appColor,
-                                                  borderRadius:
-                                                      BorderRadius.circular(4)),
-                                              child: verfiy.loading
-                                                  ? const CircularProgressIndicator(
-                                                      color: white,
-                                                    )
-                                                  : const Center(
-                                                      child: Text(
-                                                      "submit",
-                                                      style: TextStyle(
-                                                          color: white),
-                                                    )),
-                                              // color: appColor,
-                                            ),
-                                          )
-                                        ],
-                                      );
-                                    });
-                              },
-                              child: Container(
-                                height: 7.3.h,
-                                width: double.infinity,
-                                padding: const EdgeInsets.all(fixPadding * 1.2),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: PrimaryColor,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Text("Proceed",
+
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 40),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(5.0),
+                      onTap: () {
+                        widget.title == "Fastag"
+                            ? fastagProvider.payBills(
+                                rechargeAmount,
+                                TB.toString(),
+                                calculatedVocher.toString(),
+                                voucherCode.text,
+                                pinCode.text,
+                                widget.txId,
+                                context)
+                            : dthRecharge.payDthRecharge(
+                                rechargeAmount,
+                                TB.toString(),
+                                calculatedVocher.toString(),
+                                voucherCode.text.toString(),
+                                pinCode.text,
+                                // category,
+                                // txId,
+                                context);
+                      },
+                      child: Container(
+                        width: 80.w,
+                        padding: const EdgeInsets.all(fixPadding * 1.2),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: PrimaryColor,
+                          borderRadius: BorderRadius.circular(5),
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //     color: PrimaryColor.withOpacity(0.4),
+                          //     spreadRadius: 2,
+                          //     blurRadius: 2,
+                          //   ),
+                          // ],
+                        ),
+                        child: widget.title == "Fastag"
+                            ? fastagProvider.loading
+                                ? const Center(
+                                    child: CircularProgressIndicator(
+                                    strokeWidth: 3,
+                                    color: Colors.white,
+                                  ))
+                                : Text(
+                                    'Proceed To Payment',
                                     style: GoogleFonts.inter(
                                       color: white,
-                                      fontSize: 18,
+                                      fontSize: 13.sp,
                                       fontWeight: FontWeight.w700,
                                       //: 'NunitoSans',
-                                    )),
-                              ),
-                            ),
-                  // : SizedBox(),
-                  spacer20Height,
-                  (verfiy.pinData == null || verfiy.pinData.status == "error")
-                      ? SizedBox()
-                      : Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 40),
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(5.0),
-                            onTap: () {
-                              widget.title == "Fastag"
-                                  ? fastagProvider.payBills(
-                                      rechargeAmount,
-                                      TB.toString(),
-                                      calculatedVocher.toString(),
-                                      voucherCode.text,
-                                      pinCode.text,
-                                      widget.txId,
-                                      context)
-                                  : dthRecharge.payDthRecharge(
-                                      rechargeAmount,
-                                      TB.toString(),
-                                      calculatedVocher.toString(),
-                                      voucherCode.text.toString(),
-                                      pinCode.text,
-                                      // category,
-                                      // txId,
-                                      context);
-                            },
-                            child: Container(
-                              width: 80.w,
-                              padding: const EdgeInsets.all(fixPadding * 1.2),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: PrimaryColor,
-                                borderRadius: BorderRadius.circular(5),
-                                // boxShadow: [
-                                //   BoxShadow(
-                                //     color: PrimaryColor.withOpacity(0.4),
-                                //     spreadRadius: 2,
-                                //     blurRadius: 2,
-                                //   ),
-                                // ],
-                              ),
-                              child: widget.title == "Fastag"
-                                  ? fastagProvider.loading
-                                      ? const Center(
-                                          child: CircularProgressIndicator(
-                                          strokeWidth: 3,
-                                          color: Colors.white,
-                                        ))
-                                      : Text(
-                                          'Proceed To Recharge',
-                                          style: GoogleFonts.inter(
-                                            color: white,
-                                            fontSize: 13.sp,
-                                            fontWeight: FontWeight.w700,
-                                            //: 'NunitoSans',
-                                          ),
-                                        )
-                                  : dthRecharge.loading
-                                      ? const Center(
-                                          child: CircularProgressIndicator(
-                                          strokeWidth: 3,
-                                          color: Colors.white,
-                                        ))
-                                      : Text(
-                                          'Proceed To Recharge',
-                                          style: GoogleFonts.inter(
-                                            color: white,
-                                            fontSize: 13.sp,
-                                            fontWeight: FontWeight.w600,
-                                            //: 'NunitoSans',
-                                          ),
-                                        ),
-                            ),
-                          ),
-                        ),
+                                    ),
+                                  )
+                            : dthRecharge.loading
+                                ? const Center(
+                                    child: CircularProgressIndicator(
+                                    strokeWidth: 3,
+                                    color: Colors.white,
+                                  ))
+                                : Text(
+                                    'Proceed To Payment',
+                                    style: GoogleFonts.inter(
+                                      color: white,
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w600,
+                                      //: 'NunitoSans',
+                                    ),
+                                  ),
+                      ),
+                    ),
+                  ),
+
+                  // verfiy.pinData == null
+                  //     ? InkWell(
+                  //         borderRadius: BorderRadius.circular(5.0),
+                  //         onTap: () {
+                  //           showDialog(
+                  //               context: context,
+                  //               builder: (BuildContext context) {
+                  //                 return AlertDialog(
+                  //                   title: Text(
+                  //                     "Enter Your Pin ",
+                  //                     style: GoogleFonts.inter(
+                  //                         fontSize: 18,
+                  //                         fontWeight: FontWeight.w500),
+                  //                   ),
+                  //                   content: Container(
+                  //                     // color: white,
+                  //                     child: TextFormField(
+                  //                       inputFormatters: [
+                  //                         LengthLimitingTextInputFormatter(4),
+                  //                       ],
+                  //                       keyboardType: TextInputType.number,
+                  //                       validator: (value) {
+                  //                         if (value == null || value.isEmpty) {
+                  //                           return Utils.toastMessage(
+                  //                               "Please enter your Pin");
+                  //                         }
+                  //                         return null;
+                  //                       },
+                  //                       decoration: const InputDecoration(
+                  //                           // border: InputBorder.none,
+                  //                           ),
+                  //                       cursorColor: appColor,
+                  //                       style: const TextStyle(
+                  //                           fontSize: 32,
+                  //                           fontWeight: FontWeight.w600),
+                  //                       controller: _pinController,
+                  //                       textAlign: TextAlign.center,
+                  //                     ),
+                  //                     height: 50,
+                  //                     width: 200,
+                  //                   ),
+                  //                   actions: [
+                  //                     InkWell(
+                  //                       onTap: () {
+                  //                         verfiy.verifyYourPin(
+                  //                             _pinController.text, context);
+                  //                       },
+                  //                       child: Container(
+                  //                         height: 35,
+                  //                         width: 80,
+                  //                         decoration: BoxDecoration(
+                  //                             color: appColor,
+                  //                             borderRadius:
+                  //                                 BorderRadius.circular(4)),
+                  //                         child: verfiy.loading
+                  //                             ? const CircularProgressIndicator(
+                  //                                 color: white,
+                  //                               )
+                  //                             : const Center(
+                  //                                 child: Text(
+                  //                                 "submit",
+                  //                                 style:
+                  //                                     TextStyle(color: white),
+                  //                               )),
+                  //                         // color: appColor,
+                  //                       ),
+                  //                     )
+                  //                   ],
+                  //                 );
+                  //               });
+                  //         },
+                  //         child: Container(
+                  //           height: 7.3.h,
+                  //           width: double.infinity,
+                  //           padding: const EdgeInsets.all(fixPadding * 1.2),
+                  //           alignment: Alignment.center,
+                  //           decoration: BoxDecoration(
+                  //             color: PrimaryColor,
+                  //             borderRadius: BorderRadius.circular(5),
+                  //           ),
+                  //           child: Text("Proceed",
+                  //               style: GoogleFonts.inter(
+                  //                 color: white,
+                  //                 fontSize: 18,
+                  //                 fontWeight: FontWeight.w700,
+                  //                 //: 'NunitoSans',
+                  //               )),
+                  //         ),
+                  //       )
+                  //     : verfiy.pinData.status == "success"
+                  //         ? SizedBox()
+                  //         : InkWell(
+                  //             borderRadius: BorderRadius.circular(5.0),
+                  //             onTap: () {
+                  //               showDialog(
+                  //                   context: context,
+                  //                   builder: (BuildContext context) {
+                  //                     return AlertDialog(
+                  //                       title: Text(
+                  //                         "Enter Your Pin ",
+                  //                         style: GoogleFonts.inter(
+                  //                             fontSize: 18,
+                  //                             fontWeight: FontWeight.w500),
+                  //                       ),
+                  //                       content: Container(
+                  //                         // color: white,
+                  //                         child: TextFormField(
+                  //                           inputFormatters: [
+                  //                             LengthLimitingTextInputFormatter(
+                  //                                 4),
+                  //                           ],
+                  //                           keyboardType: TextInputType.number,
+                  //                           validator: (value) {
+                  //                             if (value == null ||
+                  //                                 value.isEmpty) {
+                  //                               return Utils.toastMessage(
+                  //                                   "Please enter your Pin");
+                  //                             }
+                  //                             return null;
+                  //                           },
+                  //                           decoration: const InputDecoration(
+                  //                               // border: InputBorder.none,
+                  //                               ),
+                  //                           cursorColor: appColor,
+                  //                           style: const TextStyle(
+                  //                               fontSize: 32,
+                  //                               fontWeight: FontWeight.w600),
+                  //                           controller: _pinController,
+                  //                           textAlign: TextAlign.center,
+                  //                         ),
+                  //                         height: 50,
+                  //                         width: 200,
+                  //                       ),
+                  //                       actions: [
+                  //                         InkWell(
+                  //                           onTap: () {
+                  //                             verfiy.verifyYourPin(
+                  //                                 _pinController.text, context);
+                  //                           },
+                  //                           child: Container(
+                  //                             height: 35,
+                  //                             width: 80,
+                  //                             decoration: BoxDecoration(
+                  //                                 color: appColor,
+                  //                                 borderRadius:
+                  //                                     BorderRadius.circular(4)),
+                  //                             child: verfiy.loading
+                  //                                 ? const CircularProgressIndicator(
+                  //                                     color: white,
+                  //                                   )
+                  //                                 : const Center(
+                  //                                     child: Text(
+                  //                                     "submit",
+                  //                                     style: TextStyle(
+                  //                                         color: white),
+                  //                                   )),
+                  //                             // color: appColor,
+                  //                           ),
+                  //                         )
+                  //                       ],
+                  //                     );
+                  //                   });
+                  //             },
+                  //             child: Container(
+                  //               height: 7.3.h,
+                  //               width: double.infinity,
+                  //               padding: const EdgeInsets.all(fixPadding * 1.2),
+                  //               alignment: Alignment.center,
+                  //               decoration: BoxDecoration(
+                  //                 color: PrimaryColor,
+                  //                 borderRadius: BorderRadius.circular(5),
+                  //               ),
+                  //               child: Text("Proceed",
+                  //                   style: GoogleFonts.inter(
+                  //                     color: white,
+                  //                     fontSize: 18,
+                  //                     fontWeight: FontWeight.w700,
+                  //                     //: 'NunitoSans',
+                  //                   )),
+                  //             ),
+                  //           ),
+                  // // : SizedBox(),
+                  // spacer20Height,
+                  // (verfiy.pinData == null || verfiy.pinData.status == "error")
+                  //     ? SizedBox()
+                  //     :
+                  //     Padding(
+                  //         padding: const EdgeInsets.only(left: 20, top: 40),
+                  //         child: InkWell(
+                  //           borderRadius: BorderRadius.circular(5.0),
+                  //           onTap: () {
+                  //             widget.title == "Fastag"
+                  //                 ? fastagProvider.payBills(
+                  //                     rechargeAmount,
+                  //                     TB.toString(),
+                  //                     calculatedVocher.toString(),
+                  //                     voucherCode.text,
+                  //                     pinCode.text,
+                  //                     widget.txId,
+                  //                     context)
+                  //                 : dthRecharge.payDthRecharge(
+                  //                     rechargeAmount,
+                  //                     TB.toString(),
+                  //                     calculatedVocher.toString(),
+                  //                     voucherCode.text.toString(),
+                  //                     pinCode.text,
+                  //                     // category,
+                  //                     // txId,
+                  //                     context);
+                  //           },
+                  //           child: Container(
+                  //             width: 80.w,
+                  //             padding: const EdgeInsets.all(fixPadding * 1.2),
+                  //             alignment: Alignment.center,
+                  //             decoration: BoxDecoration(
+                  //               color: PrimaryColor,
+                  //               borderRadius: BorderRadius.circular(5),
+                  //               // boxShadow: [
+                  //               //   BoxShadow(
+                  //               //     color: PrimaryColor.withOpacity(0.4),
+                  //               //     spreadRadius: 2,
+                  //               //     blurRadius: 2,
+                  //               //   ),
+                  //               // ],
+                  //             ),
+                  //             child: widget.title == "Fastag"
+                  //                 ? fastagProvider.loading
+                  //                     ? const Center(
+                  //                         child: CircularProgressIndicator(
+                  //                         strokeWidth: 3,
+                  //                         color: Colors.white,
+                  //                       ))
+                  //                     : Text(
+                  //                         'Proceed To Payments',
+                  //                         style: GoogleFonts.inter(
+                  //                           color: white,
+                  //                           fontSize: 13.sp,
+                  //                           fontWeight: FontWeight.w700,
+                  //                           //: 'NunitoSans',
+                  //                         ),
+                  //                       )
+                  //                 : dthRecharge.loading
+                  //                     ? const Center(
+                  //                         child: CircularProgressIndicator(
+                  //                         strokeWidth: 3,
+                  //                         color: Colors.white,
+                  //                       ))
+                  //                     : Text(
+                  //                         'Proceed To Payments',
+                  //                         style: GoogleFonts.inter(
+                  //                           color: white,
+                  //                           fontSize: 13.sp,
+                  //                           fontWeight: FontWeight.w600,
+                  //                           //: 'NunitoSans',
+                  //                         ),
+                  //                       ),
+                  //           ),
+                  //         ),
+                  //       ),
 
                   const SizedBox(
                     height: 30,

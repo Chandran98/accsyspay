@@ -6,8 +6,10 @@ import 'package:sizer/sizer.dart';
 
 import '../constant/colors/colors.dart';
 import '../pages/service_history/service_detailed_screen.dart';
+import '../pages/service_history/service_history_screen.dart';
 import '../provider/service_history_provider.dart';
 import '../provider/wallet_provider.dart';
+import '../utils/app_bar.dart';
 import '../utils/charts/Transaction_chart.dart';
 import '../utils/main_app_utils.dart';
 import '../utils/shimmer_List.dart';
@@ -42,106 +44,128 @@ class _ExpenseChartScreenState extends State<ExpenseChartScreen> {
       child: Scaffold(
         body: Column(
           children: [
+            CustomAppBar(
+              title: "Expense History",
+            ),
             Expanded(
                 child: Container(
               child: Column(
                 children: [
                   TransactionChart(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 8.h,
-                          width: 40.w,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: white.withOpacity(0.4)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    "Income",
-                                    style: GoogleFonts.inter(
-                                        // color: white,
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w600),
+                  spacer10Height,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 8.h,
+                            width: 40.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+
+                                // gradient: LinearGradient(
+                                //     begin: Alignment.topLeft,
+                                //     end: Alignment.bottomRight,
+                                //     colors: [
+                                //       appColor,
+                                //       appColor.withOpacity(0.4),
+                                //     ]),
+                                color: const Color(0xFF074aa1)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      "Income",
+                                      style: GoogleFonts.inter(
+                                          color: white,
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
-                                ),
-                                // spacer10Height,
-                                Expanded(
-                                  child: Text(
-                                    // balance == "null"
-                                    //     ? "-----"
-                                    //     :
-                                    // balance
-                                    // ?
-                                    "₹ ${balanceProvider.totalInflowAmount.toString() == "null" ? "0" : balanceProvider.totalInflowAmount}"
-                                    // : "₹ *****",
-                                    ,
-                                    style: GoogleFonts.inter(
-                                        // color: white,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                )
-                              ],
+                                  // spacer10Height,
+                                  Expanded(
+                                    child: Text(
+                                      // balance == "null"
+                                      //     ? "-----"
+                                      //     :
+                                      // balance
+                                      // ?
+                                      "₹ ${balanceProvider.totalInflowAmount.toString() == "null" ? "0" : balanceProvider.totalInflowAmount}"
+                                      // : "₹ *****",
+                                      ,
+                                      style: GoogleFonts.inter(
+                                          color: white,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      spacer10Width,
-                      Expanded(
-                        child: Container(
-                          height: 8.h,
-                          width: 40.w,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: white.withOpacity(0.4)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    "Expense",
-                                    style: GoogleFonts.inter(
-                                        // color: white,
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w600),
+                        spacer10Width,
+                        Expanded(
+                          child: Container(
+                            height: 8.h,
+                            width: 40.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                // gradient: LinearGradient(
+                                //     begin: Alignment.topLeft,
+                                //     end: Alignment.bottomRight,
+                                //     colors: [
+                                //       appColor,
+                                //       appColor.withOpacity(0.4),
+                                //     ]),
+                                color: appColor),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      "Expense",
+                                      style: GoogleFonts.inter(
+                                          color: white,
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
-                                ),
-                                // spacer10Height,
-                                Expanded(
-                                  child: Text(
-                                    // balance == "null"
-                                    //     ? "-----"
-                                    //     :
-                                    // balance
-                                    //     ?
-                                    "₹ ${balanceProvider.totalOutflowAmount.toString() == "null" ? "0" : balanceProvider.totalOutflowAmount}",
-                                    // : "₹ *****",
-                                    style: GoogleFonts.inter(
-                                        // color: white,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                )
-                              ],
+                                  // spacer10Height,
+                                  Expanded(
+                                    child: Text(
+                                      // balance == "null"
+                                      //     ? "-----"
+                                      //     :
+                                      // balance
+                                      //     ?
+                                      "₹ ${balanceProvider.totalOutflowAmount.toString() == "null" ? "0" : balanceProvider.totalOutflowAmount}",
+                                      // : "₹ *****",
+                                      style: GoogleFonts.inter(
+                                          color: white,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
             )),
-            spacer40Height,
+            // spacer20Height,
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: Column(children: [
@@ -155,11 +179,11 @@ class _ExpenseChartScreenState extends State<ExpenseChartScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (builder) =>
-                          //             const BusHistoryScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (builder) =>
+                                      const ServiceHistoryScreen()));
                         },
                         child: const Text(
                           "see all",
@@ -178,8 +202,8 @@ class _ExpenseChartScreenState extends State<ExpenseChartScreen> {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
-                    itemCount: serviceProvider.transactionHistory.length >= 3
-                        ? 3
+                    itemCount: serviceProvider.transactionHistory.length >= 2
+                        ? 2
                         : serviceProvider.transactionHistory.length,
                     itemBuilder: (context, index) {
                       final data = serviceProvider

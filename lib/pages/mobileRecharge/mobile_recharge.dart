@@ -671,7 +671,7 @@ class _MobileRechargeState extends State<MobileRecharge> {
               ],
             ),
             child: Text(
-              'Proceed To Recharge',
+              'Proceed To Payments',
               style: white22BoldTextStyle,
             ),
           ),

@@ -10,6 +10,10 @@ import '../pages/auth_screen/forgot_password.dart';
 import '../pages/auth_screen/login.dart';
 import '../pages/auth_screen/login_otp_screen.dart';
 import '../pages/main_screen.dart';
+import '../pages/recharge/amountpaid.dart';
+import '../pages/recharge/dth_screens/4_dth_recharge_screen.dart';
+import '../pages/recharge/fastag_screens/4_fastag_rechrge.dart';
+import '../pages/utiltiy/5_utility_payment_screen.dart';
 import '../pages/verficationscreen.dart';
 import '../constant/app_url.dart';
 import '../Models/auth_models/login_model.dart';
@@ -409,9 +413,137 @@ class AuthProvider extends ChangeNotifier {
         profile.status == "error"
             ? Utils.toastMessage("Invalid Pin")
             : {
-                Utils.toastMessage("You can Proceed to Recharge"),
+                Utils.toastMessage("You can Proceed To Payments"),
                 Navigator.of(context).pop()
               };
+
+        _pinData = profile;
+        notifyListeners();
+      } else {
+        setLoading(false);
+        Utils.toastMessage("Failed-Please try again");
+      }
+      notifyListeners();
+    } catch (e) {
+      setLoading(false);
+      Utils.toastMessage("failed");
+    }
+  }
+
+  verifyYourPinFD(amount, title, txId, pin, context) async {
+    var userId = await prefService.getUserId("userid");
+    print("object pin");
+
+    try {
+      final String url = AppURl.verifyPin;
+      setLoading(true);
+      final body = {"user_id": userId, "pin": pin};
+
+      var response = await http.post(Uri.parse(url), body: body);
+      print("objectasdd");
+      if (response.statusCode == 200) {
+        setLoading(false);
+        print("objdsaect");
+        var jsonData = jsonDecode(response.body);
+        OtpCheck profile = OtpCheck.fromJson(jsonData);
+        profile.status == "error"
+            ? Utils.toastMessage("Invalid Pin")
+            : title == "Fastag"
+                ? Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FastagRechargeScreen(
+                              amount: amount,
+                              title: title,
+                              txId: txId,
+                            )))
+                : Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DthRechargeScreen(
+                              amount: amount,
+                              title: title,
+                              txId: txId,
+                            )));
+
+        _pinData = profile;
+        notifyListeners();
+      } else {
+        setLoading(false);
+        Utils.toastMessage("Failed-Please try again");
+      }
+      notifyListeners();
+    } catch (e) {
+      setLoading(false);
+      Utils.toastMessage("failed");
+    }
+  }
+
+  verifyYourPinUtility(amount, txId, pin, context) async {
+    var userId = await prefService.getUserId("userid");
+    print("object pin");
+
+    try {
+      final String url = AppURl.verifyPin;
+      setLoading(true);
+      final body = {"user_id": userId, "pin": pin};
+
+      var response = await http.post(Uri.parse(url), body: body);
+      print("objectasdd");
+      if (response.statusCode == 200) {
+        setLoading(false);
+        print("objdsaect");
+        var jsonData = jsonDecode(response.body);
+        OtpCheck profile = OtpCheck.fromJson(jsonData);
+
+        profile.status == "error"
+            ? Utils.toastMessage("Invalid Pin")
+            : Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => UtilityPayment(
+                          amount: amount,
+                          txnID: txId,
+                        )));
+
+        _pinData = profile;
+        notifyListeners();
+      } else {
+        setLoading(false);
+        Utils.toastMessage("Failed-Please try again");
+      }
+      notifyListeners();
+    } catch (e) {
+      setLoading(false);
+      Utils.toastMessage("failed");
+    }
+  }
+
+  verifyYourPinMobile(amount, pin, context) async {
+    var userId = await prefService.getUserId("userid");
+    print("object pin");
+
+    try {
+      final String url = AppURl.verifyPin;
+      setLoading(true);
+      final body = {"user_id": userId, "pin": pin};
+
+      var response = await http.post(Uri.parse(url), body: body);
+      print("objectasdd");
+      if (response.statusCode == 200) {
+        setLoading(false);
+        print("objdsaect");
+        var jsonData = jsonDecode(response.body);
+        OtpCheck profile = OtpCheck.fromJson(jsonData);
+
+        profile.status == "error"
+            ? Utils.toastMessage("Invalid Pin")
+            : Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => RechargePaymentPage(
+                          amount: amount,
+                        )));
 
         _pinData = profile;
         notifyListeners();

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../../pages/screens.dart';
 import '../../../utils/shimmer_List.dart';
 import '../amountpaid.dart';
+import '../mobile_pin_screen.dart';
 
 class PrePaidPlanScreen extends StatefulWidget {
   const PrePaidPlanScreen({Key key}) : super(key: key);
@@ -32,32 +33,30 @@ class _PrePaidPlanScreenState extends State<PrePaidPlanScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => RechargePaymentPage(
+                                  builder: (_) => MobileAuthenticateScreen(
                                       amount: jsondata.amount)));
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 4),
-                          child: ExpansionTile(
-                            iconColor: PrimaryColor,
-                            textColor: PrimaryColor,
+                          child: ExpansionTile(iconColor: PrimaryColor,textColor:PrimaryColor ,
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
-                                    Text(
+                                     Text(
                                       "Package",
                                       style: GoogleFonts.inter(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600),
+                                          
+                                    fontSize: 15.0, fontWeight: FontWeight.w600),
                                     ),
                                     const SizedBox(
                                       width: 20,
                                     ),
                                     Text(
                                       jsondata.amount,
-                                      style: GoogleFonts.inter(
+                                      style:  GoogleFonts.inter(
                                           fontSize: 15.0,
                                           fontWeight: FontWeight.w600),
                                     ),
@@ -65,20 +64,18 @@ class _PrePaidPlanScreenState extends State<PrePaidPlanScreen> {
                                 ),
                                 Row(
                                   children: [
-                                    Text(
+                                     Text(
                                       "validity",
                                       style: GoogleFonts.inter(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600),
+                                    fontSize: 15.0, fontWeight: FontWeight.w600),
                                     ),
                                     const SizedBox(
                                       width: 10,
                                     ),
                                     Text(
                                       jsondata.validity,
-                                      style: GoogleFonts.inter(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600),
+                                      style:  GoogleFonts.inter(
+                                    fontSize: 15.0, fontWeight: FontWeight.w600),
                                     ),
                                   ],
                                 )
@@ -86,24 +83,20 @@ class _PrePaidPlanScreenState extends State<PrePaidPlanScreen> {
                             ),
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
+                                padding: const EdgeInsets.only(bottom:8.0),
                                 child: ListTile(
                                   title: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
+                                       Text(
                                         "Description",
                                         style: GoogleFonts.inter(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      spacer10Height,
+                                      fontSize: 15.0, fontWeight: FontWeight.w600),
+                                      ),spacer10Height,
                                       Text(
                                         jsondata.descr,
-                                        style: GoogleFonts.inter(
-                                            fontSize: 13.0,
-                                            fontWeight: FontWeight.w500),
+                                        style:  GoogleFonts.inter(
+                                      fontSize: 13.0, fontWeight: FontWeight.w500),
                                       ),
                                     ],
                                   ),
@@ -115,5 +108,7 @@ class _PrePaidPlanScreenState extends State<PrePaidPlanScreen> {
                       );
                     },
                   )));
+  
+  
   }
 }

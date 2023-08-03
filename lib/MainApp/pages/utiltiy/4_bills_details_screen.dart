@@ -1,4 +1,5 @@
 import 'package:Accsys_Pay/MainApp/pages/utiltiy/5_utility_payment_screen.dart';
+import 'package:Accsys_Pay/MainApp/pages/utiltiy/utility_pin_screen.dart';
 import 'package:Accsys_Pay/MainApp/provider/utilty_provider.dart';
 import 'package:Accsys_Pay/MainApp/utils/main_app_utils.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -197,9 +198,9 @@ class _BillerDetailsScreenState extends State<BillerDetailsScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => UtilityPayment(
+                                    builder: (_) => UtilityAuthenticateScreen(
                                           amount: billData.billAmount,
-                                          txnID: billData.transactionId,
+                                          txId: billData.transactionId,
                                         )));
                           },
                           title: "Proceed",

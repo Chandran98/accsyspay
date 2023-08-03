@@ -1,5 +1,6 @@
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../provider/wallet_provider.dart';
 import '../../../pages/screens.dart';
@@ -33,32 +34,28 @@ class _TransactionChartState extends State<TransactionChart> {
     ];
     print(walletProvider.totalInflowAmount);
     print(walletProvider.totalOutflowAmount);
-    return Column(
-      children: [
-        Container(
-          height: 140,
-          width: 150,
-          child: SfCircularChart(
-            margin: EdgeInsets.all(0),
-            // title:
-            //     ChartTitle(text: 'Continent wise GDP - 2021 \n (in billions of USD)'),
-            // legend:
-            //     Legend(isVisible: true, overflowMode: LegendItem OverflowMode.wrap),
-            tooltipBehavior: TooltipBehavior(enable: true),
-            series: <CircularSeries>[
-              DoughnutSeries<TransactionFlow, String>(
-                dataSource: chartData,
-                xValueMapper: (walletProvider, _) => walletProvider.title,
-                yValueMapper: (walletProvider, _) =>
-                    walletProvider.amount.toInt(),
-                pointColorMapper: (data, _) => data.color,
-                dataLabelSettings: DataLabelSettings(isVisible: true),
-                enableTooltip: true,
-              )
-            ],
-          ),
-        ),
-      ],
+    return SizedBox(
+      height: 27.h,
+      width: 80.w,
+      child: SfCircularChart(
+        margin: EdgeInsets.all(0),
+        // title:
+        //     ChartTitle(text: 'Continent wise GDP - 2021 \n (in billions of USD)'),
+        // legend:
+        //     Legend(isVisible: true, overflowMode: LegendItem OverflowMode.wrap),
+        tooltipBehavior: TooltipBehavior(enable: true),
+        series: <CircularSeries>[
+          DoughnutSeries<TransactionFlow, String>(
+            dataSource: chartData,
+            xValueMapper: (walletProvider, _) => walletProvider.title,
+            yValueMapper: (walletProvider, _) =>
+                walletProvider.amount.toInt(),
+            pointColorMapper: (data, _) => data.color,
+            dataLabelSettings: DataLabelSettings(isVisible: true),
+            enableTooltip: true,
+          )
+        ],
+      ),
     );
   }
 }

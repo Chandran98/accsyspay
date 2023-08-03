@@ -14,6 +14,7 @@ import '../../../utils/buttons/custom_button.dart';
 import '../../../utils/hover_message.dart';
 import '../amountpaid.dart';
 import '../dth_screens/4_dth_recharge_screen.dart';
+import '../dth_screens/5_dth_pin_screen.dart';
 import '4_fastag_rechrge.dart';
 
 class FastagAccInfoScreen extends StatefulWidget {
@@ -116,8 +117,7 @@ class _FastagAccInfoScreenState extends State<FastagAccInfoScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 8.0, top: 6),
+                                  padding: const EdgeInsets.only(left: 8.0, top: 6),
                                   child: Text(
                                     "Bill Details",
                                     style: GoogleFonts.inter(
@@ -213,17 +213,11 @@ class _FastagAccInfoScreenState extends State<FastagAccInfoScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (_) => FastagRechargeScreen(
+                                      builder: (_) => FastagDthAuthenticateScreen(
                                           title: "Fastag",
                                           amount: _amountController.text,
                                           txId: billData.transactionId)));
                             }
-
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (_) => RechargePaymentPage(
-                            //             amount: _amountController.text)));
                           },
                           child: Container(
                             width: double.infinity,
