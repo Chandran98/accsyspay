@@ -1,11 +1,12 @@
 // import 'package:Vairaa_Pay/MainApp/constant/colors/colors.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:Accsys_Pay/MainApp/provider/auth_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../utils/app_bar.dart';
 import '../../utils/main_app_utils.dart';
 import '/../../pages/screens.dart';

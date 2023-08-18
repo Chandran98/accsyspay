@@ -1,5 +1,5 @@
 class AppURl {
-  static var baseurl = "https://accsyspay.com/api/v1/";
+  static var baseurl = "https://accsyspay.com/api/v0/";
   static var registerUrl = baseurl + "registerUser";
   static var loginUrl = baseurl + "loginUser";
   static var bannerUrl = baseurl + "bannerUrl";
