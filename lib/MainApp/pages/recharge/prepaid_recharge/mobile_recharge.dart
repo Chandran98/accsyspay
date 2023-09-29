@@ -4,6 +4,7 @@ import 'package:Accsys_Pay/pages/screens.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../provider/themeprovider.dart';
 import '../../../utils/Internet connectivity/Network_status.dart';
@@ -22,15 +23,15 @@ class _MobileRechargeScreenState extends State<MobileRechargeScreen> {
   bool isChecked = false;
   String operator = 'Jio';
   String prePaidoperatorId = '1';
-  String postPaidOperatorId = '1';
+  String postPaidOperatorId = '11';
   String circleId = "1";
   String circle = 'TamilNadu';
 
   List<ImageModel> planList = [
-    ImageModel(image: 'assets/mobile_card/aritel.png', code: '1'),
-    ImageModel(image: 'assets/mobile_card/vi.png', code: '2'),
-    ImageModel(image: 'assets/mobile_card/jio.png', code: '4'),
-    ImageModel(image: 'assets/mobile_card/bsnl.png', code: '8'),
+    ImageModel(image: 'assets/mobile_card/aritel.png', code: '11',name:"Airtel"),
+    ImageModel(image: 'assets/mobile_card/vi.png', code: '12',name:"Vi"),
+    ImageModel(image: 'assets/mobile_card/bsnl.png', code: '18',name:"BSNL"),
+    ImageModel(image: 'assets/mobile_card/jio.png', code: '14',name:"JIO"),
   ];
 
   final mobileController = TextEditingController();
@@ -175,106 +176,7 @@ class _MobileRechargeScreenState extends State<MobileRechargeScreen> {
                                     const SizedBox(
                                       height: 40,
                                     ),
-                                    // provider.fetchoperator == null
-                                    //     ? const SizedBox()
-                                    //     : Container(
-                                    //         decoration: BoxDecoration(
-                                    //           color: Colors.white,
-                                    //           border: Border.all(
-                                    //               color: Colors.grey.shade100,
-                                    //               width: 3),
-                                    //           borderRadius:
-                                    //               BorderRadius.circular(5),
-                                    //         ),
-                                    //         width: 300,
-                                    //         child: Padding(
-                                    //           padding: const EdgeInsets.all(8.0),
-                                    //           child: Column(
-                                    //             crossAxisAlignment:
-                                    //                 CrossAxisAlignment.start,
-                                    //             children: [
-                                    //               Padding(
-                                    //                 padding:
-                                    //                     const EdgeInsets.all(5.0),
-                                    //                 child: Row(
-                                    //                   mainAxisAlignment:
-                                    //                       MainAxisAlignment
-                                    //                           .spaceBetween,
-                                    //                   children: [
-                                    //                     const Text(
-                                    //                       "Network",
-                                    //                       style: TextStyle(
-                                    //                           color: blackColor,
-                                    //                           fontWeight:
-                                    //                               FontWeight
-                                    //                                   .w700),
-                                    //                     ),
-                                    //                     Text(provider
-                                    //                                 .fetchoperator ==
-                                    //                             null
-                                    //                         ? "data"
-                                    //                         : provider
-                                    //                             .fetchoperator
-                                    //                             .operatorOperator),
-                                    //                   ],
-                                    //                 ),
-                                    //               ),
-                                    //               Padding(
-                                    //                 padding:
-                                    //                     const EdgeInsets.all(5.0),
-                                    //                 child: Row(
-                                    //                   mainAxisAlignment:
-                                    //                       MainAxisAlignment
-                                    //                           .spaceBetween,
-                                    //                   children: [
-                                    //                     const Text(
-                                    //                       "Mobile",
-                                    //                       style: TextStyle(
-                                    //                           color: blackColor,
-                                    //                           fontWeight:
-                                    //                               FontWeight
-                                    //                                   .w700),
-                                    //                     ),
-                                    //                     Text(
-                                    //                         provider.fetchoperator ==
-                                    //                                 null
-                                    //                             ? "data"
-                                    //                             : provider
-                                    //                                 .fetchoperator
-                                    //                                 .mobile),
-                                    //                   ],
-                                    //                 ),
-                                    //               ),
-                                    //               Padding(
-                                    //                 padding:
-                                    //                     const EdgeInsets.all(5.0),
-                                    //                 child: Row(
-                                    //                   mainAxisAlignment:
-                                    //                       MainAxisAlignment
-                                    //                           .spaceBetween,
-                                    //                   children: [
-                                    //                     const Text(
-                                    //                       "Circle",
-                                    //                       style: TextStyle(
-                                    //                           color: blackColor,
-                                    //                           fontWeight:
-                                    //                               FontWeight
-                                    //                                   .w700),
-                                    //                     ),
-                                    //                     Text(
-                                    //                         provider.fetchoperator ==
-                                    //                                 null
-                                    //                             ? "data"
-                                    //                             : provider
-                                    //                                 .fetchoperator
-                                    //                                 .circle),
-                                    //                   ],
-                                    //                 ),
-                                    //               ),
-                                    //             ],
-                                    //           ),
-                                    //         ),
-                                    //       ),
+                                  
 
                                     InkWell(
                                       borderRadius: BorderRadius.circular(5.0),
@@ -418,20 +320,17 @@ class _MobileRechargeScreenState extends State<MobileRechargeScreen> {
                                             ),
                                             height: 280,
                                             child: ListView.builder(
-                                              itemCount: rechargeProvider
-                                                  .postpaidOperators.length,
+                                              itemCount: planList.length,
                                               physics:
                                                   const BouncingScrollPhysics(),
                                               itemBuilder:
                                                   (BuildContext context,
                                                       int index) {
-                                                var jsonData = rechargeProvider
-                                                    .postpaidOperators[index]
-                                                    .details[index];
+                                                var jsonData = planList[index];
                                                 return InkWell(
                                                     onTap: () {
                                                       postPaidOperatorId =
-                                                          jsonData.operatorId
+                                                          jsonData.code
                                                               .toString();
                                                       print(postPaidOperatorId);
                                                       if (_postPaidformKey
@@ -462,12 +361,7 @@ class _MobileRechargeScreenState extends State<MobileRechargeScreen> {
                                                         ),
                                                         child: Container(
                                                           color: postPaidOperatorId ==
-                                                                  rechargeProvider
-                                                                      .postpaidOperators[
-                                                                          index]
-                                                                      .details[
-                                                                          index]
-                                                                      .operatorId
+                                                                  jsonData.code
                                                               ? PrimaryColor
                                                                   .withOpacity(
                                                                       0.2)
@@ -492,18 +386,13 @@ class _MobileRechargeScreenState extends State<MobileRechargeScreen> {
                                                                   flex: 1,
                                                                   child: SizedBox(
                                                                       height:
-                                                                          35,
-                                                                      child: jsonData.logo !=
-                                                                              "https://res.cloudinary.com/villagehosting-top-ssd-web-hosting-provider/image/upload/c_scale,w_32/v1610428469/Vi-logo_edrxf3.svg"
-                                                                          ? Image.network(jsonData
-                                                                              .logo)
-                                                                          : SvgPicture.network(
-                                                                              jsonData.logo))),
+                                                                          4.9.h,
+                                                                      child: Image.asset(jsonData.image,scale: 0.12.h,))),
                                                               Expanded(
                                                                   flex: 3,
                                                                   child: Text(
                                                                       jsonData
-                                                                          .operatorName)),
+                                                                          .name)),
                                                             ],
                                                           ),
                                                         )));
@@ -747,7 +636,7 @@ class _MobileRechargeScreenState extends State<MobileRechargeScreen> {
 }
 
 class ImageModel {
-  String image, code;
+  String image, code,name;
 
-  ImageModel({this.image, this.code});
+  ImageModel({this.image, this.name,this.code});
 }

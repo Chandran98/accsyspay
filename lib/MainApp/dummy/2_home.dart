@@ -86,8 +86,6 @@ class _HomeSideState extends State<HomeSide> {
   @override
   Widget build(BuildContext context) {
     var balanceProvider = Provider.of<WalletProvider>(context, listen: false);
-
-    // print("$getTime()");
     var theme = Provider.of<ThemeProvider>(context);
     var profileInfo = Provider.of<AuthProvider>(context);
     var dthPlan = Provider.of<DthProvider>(context, listen: false);

@@ -55,7 +55,7 @@ android {
         applicationId "com.accsyspay.apay"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 4
+        versionCode 5
         versionName '1.0'
         multiDexEnabled true
     }

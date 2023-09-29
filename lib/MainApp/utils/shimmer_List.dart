@@ -1,4 +1,3 @@
-
 import 'package:nb_utils/nb_utils.dart';
 
 import 'package:shimmer/shimmer.dart';
@@ -16,7 +15,8 @@ class ShimmerListComponent extends StatelessWidget {
     int offset = 0;
     int time = 800;
 
-    return ListView.separated(shrinkWrap: true,
+    return ListView.separated(
+      shrinkWrap: true,
       separatorBuilder: (BuildContext context, int index) => const Divider(),
       itemCount: 6,
       itemBuilder: (BuildContext context, int index) {
@@ -43,11 +43,20 @@ class ShimmerListComponent extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(height: containerHeight, width: containerWidth, color: Colors.grey),
+              Container(
+                  height: containerHeight,
+                  width: containerWidth,
+                  color: Colors.grey),
               5.height,
-              Container(height: containerHeight, width: containerWidth, color: Colors.grey),
+              Container(
+                  height: containerHeight,
+                  width: containerWidth,
+                  color: Colors.grey),
               5.height,
-              Container(height: containerHeight, width: containerWidth * 0.75, color: Colors.grey)
+              Container(
+                  height: containerHeight,
+                  width: containerWidth * 0.75,
+                  color: Colors.grey)
             ],
           ).expand()
         ],
@@ -55,7 +64,6 @@ class ShimmerListComponent extends StatelessWidget {
     );
   }
 }
-
 
 class ShimmerBanner extends StatelessWidget {
   final double containerWidth = 280;
@@ -69,22 +77,20 @@ class ShimmerBanner extends StatelessWidget {
     int time = 800;
 
     return Shimmer.fromColors(
-          highlightColor: Colors.white,
-          baseColor: Colors.grey[200],
-          child: shimmerLayout(),
-          period: Duration(milliseconds: time),
-        );
+      highlightColor: Colors.white,
+      baseColor: Colors.grey[200],
+      child: shimmerLayout(),
+      period: Duration(milliseconds: time),
+    );
   }
-  
+
   Widget shimmerLayout() {
-    return   Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 5),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Container(height: 150, width: double.infinity, color: Colors.grey),
     );
   }
 }
-
-
 
 class TransactionShimmerList extends StatelessWidget {
   final double containerWidth = 280;
@@ -97,7 +103,8 @@ class TransactionShimmerList extends StatelessWidget {
     int offset = 0;
     int time = 800;
 
-    return ListView.separated(shrinkWrap: true,
+    return ListView.separated(
+      shrinkWrap: true,
       separatorBuilder: (BuildContext context, int index) => const Divider(),
       itemCount: 6,
       itemBuilder: (BuildContext context, int index) {
@@ -115,7 +122,7 @@ class TransactionShimmerList extends StatelessWidget {
 
   Widget shimmerLayout() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical:8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8),
         child: Row(
@@ -125,20 +132,27 @@ class TransactionShimmerList extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(height: 40, width: 40, color: Colors.grey),
-            ),spacer20Width,
+            ),
+            spacer20Width,
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                 Container(height: containerHeight, width: containerWidth * 0.9, color: Colors.grey),15.height,
+                Container(
+                    height: containerHeight,
+                    width: containerWidth * 0.9,
+                    color: Colors.grey),
+                15.height,
                 Row(
                   children: [
-                    Container(height: containerHeight, width: containerWidth*0.35, color: Colors.grey),spacer50Width,spacer50Width,
+                    Container(
+                        height: containerHeight,
+                        width: containerWidth * 0.35,
+                        color: Colors.grey),
+                    spacer50Width,
+                    spacer50Width,
                     Container(height: 20, width: 50, color: Colors.grey),
                   ],
                 ),
-                
-                
-               
               ],
             ).expand()
           ],
@@ -148,10 +162,8 @@ class TransactionShimmerList extends StatelessWidget {
   }
 }
 
-
-
 class ServicewidgetShimmerList extends StatelessWidget {
-  final double containerWidth = 280;
+  final double containerWidth = 245;
   final double containerHeight = 15;
 
   const ServicewidgetShimmerList({Key key}) : super(key: key);
@@ -161,7 +173,8 @@ class ServicewidgetShimmerList extends StatelessWidget {
     int offset = 0;
     int time = 800;
 
-    return ListView.separated(shrinkWrap: true,
+    return ListView.separated(
+      shrinkWrap: true,
       separatorBuilder: (BuildContext context, int index) => const Divider(),
       itemCount: 6,
       itemBuilder: (BuildContext context, int index) {
@@ -179,7 +192,7 @@ class ServicewidgetShimmerList extends StatelessWidget {
 
   Widget shimmerLayout() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical:8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8),
         child: Row(
@@ -187,21 +200,33 @@ class ServicewidgetShimmerList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal:8.0),
-              child: Container(height: 40, width: 40, decoration: BoxDecoration(color: Colors.grey,shape: BoxShape.circle),),
-            ),spacer10Width,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration:
+                    BoxDecoration(color: Colors.grey, shape: BoxShape.circle),
+              ),
+            ),
+            spacer10Width,
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
                   children: [
-                    Container(height: containerHeight, width: containerWidth*0.9, color: Colors.grey),spacer40Width,
+                    Container(
+                        height: containerHeight,
+                        width: containerWidth * 0.9,
+                        color: Colors.grey),
+                    spacer40Width,
                     // Container(height: 20, width: 50, color: Colors.grey),
                   ],
                 ),
                 15.height,
-                
-                Container(height: containerHeight, width: containerWidth * 0.35, color: Colors.grey)
+                Container(
+                    height: containerHeight,
+                    width: containerWidth * 0.35,
+                    color: Colors.grey)
               ],
             ).expand()
           ],
@@ -210,5 +235,3 @@ class ServicewidgetShimmerList extends StatelessWidget {
     );
   }
 }
-
-

@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
@@ -44,14 +43,20 @@ class CustomAlertBox extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(flex: 1,
-                      child:  Text(
+                    Expanded(
+                      flex: 1,
+                      child: Text(
                         "Network",
-                        style: GoogleFonts.inter(
-                             fontWeight: FontWeight.w700),
+                        style: GoogleFonts.inter(fontWeight: FontWeight.w500),
                       ),
                     ),
-                    Expanded(flex: 2,child: Text(operator,maxLines: 1,textAlign: TextAlign.right,)),
+                    Expanded(
+                        flex: 2,
+                        child: Text(
+                          operator,
+                          maxLines: 1,
+                          textAlign: TextAlign.right,
+                        )),
                   ],
                 ),
               ),
@@ -62,8 +67,7 @@ class CustomAlertBox extends StatelessWidget {
                   children: [
                     const Text(
                       "Mobile",
-                      style: TextStyle(
-                           fontWeight: FontWeight.w700),
+                      style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     Text(mobileNo),
                   ],
@@ -74,14 +78,19 @@ class CustomAlertBox extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Expanded(flex: 1,
+                    const Expanded(
+                      flex: 1,
                       child: Text(
                         "Circle",
-                        style: TextStyle(
-                             fontWeight: FontWeight.w700),
+                        style: TextStyle(fontWeight: FontWeight.w500),
                       ),
                     ),
-                    Expanded(flex: 2,child: Text(circle,textAlign: TextAlign.right,)),
+                    Expanded(
+                        flex: 2,
+                        child: Text(
+                          circle,
+                          textAlign: TextAlign.right,
+                        )),
                   ],
                 ),
               ),
