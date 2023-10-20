@@ -6,6 +6,7 @@ import 'package:Accsys_Pay/MainApp/provider/auth_provider.dart';
 import 'package:Accsys_Pay/pages/screens.dart';
 import "package:http/http.dart" as http;
 import 'package:lottie/lottie.dart';
+import '../Models/utility_files/fetch_amount_modal2.dart';
 import '../pages/recharge/fastag_screens/3_acc_info.dart';
 import '../utils/hover_message.dart';
 import '../Models/prepaid_plan_modals.dart';
@@ -20,8 +21,8 @@ import '../utils/alertDialogBox/payment_alert_dialog_box.dart';
 import '../utils/notification_service.dart';
 
 class UtilityProvider extends ChangeNotifier {
-  List<Biller> billers = [];
-  List<Biller> searchedbillers = [];
+  List<DetailModal> billers = [];
+  List<DetailModal> searchedbillers = [];
   String searchText = "";
   String _biller = '';
   get biller => _biller;
@@ -54,13 +55,13 @@ class UtilityProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Biller> _fetchbiller = [];
-  List<Biller> get fetchbiller => _fetchbiller;
-  List<Biller> _searchfetchbiller = [];
-  List<Biller> get searchfetchbiller => _searchfetchbiller;
+  List<DetailModal> _fetchbiller = [];
+  List<DetailModal> get fetchbiller => _fetchbiller;
+  List<DetailModal> _searchfetchbiller = [];
+  List<DetailModal> get searchfetchbiller => _searchfetchbiller;
 
-  DummyModal _fetchbilldetails;
-  DummyModal get fetchbilldetails => _fetchbilldetails;
+  DetailsBiller _fetchbilldetails;
+  DetailsBiller get fetchbilldetails => _fetchbilldetails;
 
   List<ModalResponse> _paramsModal = [];
   List<ModalResponse> get paramsModal => _paramsModal;
@@ -108,7 +109,7 @@ class UtilityProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       setLoading(false);
       final jsonList = jsonDecode(response.body)['details'] as List<dynamic>;
-      billers = jsonList.map((json) => Biller.fromJson(json)).toList();
+      billers = jsonList.map((json) => DetailModal.fromJson(json)).toList();
       updateData();
       // notifyListeners();
     } else {
@@ -124,7 +125,7 @@ class UtilityProvider extends ChangeNotifier {
     } else {
       searchedbillers.addAll(billers
           .where((element) =>
-              element.billerName.toLowerCase().contains(searchText))
+              element.service.toLowerCase().contains(searchText))
           .toList());
       searchText = "";
     }
@@ -137,33 +138,38 @@ class UtilityProvider extends ChangeNotifier {
   }
 
   Future<ModalDetails> fetchAmountBiller(
-      id, params1, params2, params1value, params2value, context) async {
+      id, param1, params1value,  context) async {
     final PrefService prefService = PrefService();
     var userMobile = await prefService.getMobile("mobile");
     final apiUrl = AppURl.fetchAmount;
+    print(param1);
 
-    _params1 = params1;
+    _params1 = param1;
     _params2 = params2;
     _params1value = params1value;
     _params2value = params2value;
-
+_biller=id;
     final body = {
       'biller': id,
-      "mobile": userMobile,
-      "param1_name": params1,
-      "param2_name": params2,
-      "param1_value": params1value,
-      "param2_value": params2value,
-      "category": _categoryId
+      "param1_value": userMobile,
+      "mobile": params1value,
+      // "param1_name": params1,
+      // "param2_name": params2,
+      // "param2_value": params2value,
+      // "category": _categoryId
     };
+    print(body);
     setLoading(true);
     try {
       final response = await http.post(Uri.parse(apiUrl), body: body);
+print(response.body);print(response.statusCode);
 
       if (response.statusCode == 200) {
         setLoading(false);
         var jsonData = jsonDecode(response.body);
-        DummyModal dataModal = DummyModal.fromJson(jsonData);
+
+        print(jsonData);
+        DetailsBiller dataModal = DetailsBiller.fromJson(jsonData["details"]);
         _fetchbilldetails = dataModal;
 
         _fetchbilldetails.status == "success"
@@ -174,7 +180,8 @@ class UtilityProvider extends ChangeNotifier {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: const Text("Message"),
-                    content: Text(_fetchbilldetails.details.responseMessage),
+                    content: Text("Failed-please try again"),
+                    // content: Text(_fetchbilldetails.details.responseMessage),
                     actions: <Widget>[
                       InkWell(
                         child: const Text(
@@ -202,24 +209,33 @@ class UtilityProvider extends ChangeNotifier {
   }
 
   Future<ModalDetails> fastagBiller(
-      id, params1, params2, params1value, params2value, context) async {
+      id, param1, params1value, context) async {
     final PrefService prefService = PrefService();
     var userMobile = await prefService.getMobile("mobile");
     final apiUrl = AppURl.fetchAmount;
 
-    _params1 = params1;
+    _params1 = param1;
     _params2 = params2;
     _params1value = params1value;
     _params2value = params2value;
-
+_biller=id;
     final body = {
       'biller': id,
-      "mobile": userMobile,
-      "param1_name": params1,
-      "param2_name": params2,
-      "param1_value": params1value,
-      "param2_value": params2value,
-      "category": _categoryId
+      "param1_value": userMobile,
+      "mobile": params1value,
+    // _params1 = params1;
+    // _params2 = params2;
+    // _params1value = params1value;
+    // _params2value = params2value;
+
+    // final body = {
+    //   'biller': id,
+    //   "mobile": userMobile,
+    //   "param1_name": params1,
+    //   "param2_name": params2,
+    //   "param1_value": params1value,
+    //   "param2_value": params2value,
+    //   "category": _categoryId
     };
     setLoading(true);
     try {
@@ -228,7 +244,7 @@ class UtilityProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         setLoading(false);
         var jsonData = jsonDecode(response.body);
-        DummyModal dataModal = DummyModal.fromJson(jsonData);
+        DetailsBiller dataModal = DetailsBiller.fromJson(jsonData["details"]);
         _fetchbilldetails = dataModal;
 
         _fetchbilldetails.status == "success"
@@ -239,7 +255,8 @@ class UtilityProvider extends ChangeNotifier {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: const Text("Message"),
-                    content: Text(_fetchbilldetails.details.responseMessage),
+                    content: Text("Failed - Please try again"),
+                    // content: Text(_fetchbilldetails.details.responseMessage),
                     actions: <Widget>[
                       InkWell(
                         child: const Text(
@@ -330,7 +347,7 @@ class UtilityProvider extends ChangeNotifier {
     var code = voucherCode == "" ? "0" : voucherCode;
     print("my data");
     final body = {
-      'mobile': mobile,
+      'mobile': _params1value,
       "biller": _biller,
       "amount": amount,
       "wallet_amount": walletAmount,
@@ -339,9 +356,9 @@ class UtilityProvider extends ChangeNotifier {
       "voucher_pin": voucherPin,
       "user_id": userId,
       "category": _categoryId,
-      "transid": txId,
+      // "transid": txId,
       "param1_name": _params1,
-      "param1_value": _params1value,
+      "param1_value": "",
       "param2_name": _params2,
       "param2_value": _params2value,
     };
@@ -350,9 +367,13 @@ class UtilityProvider extends ChangeNotifier {
 
     try {
       final response = await http.post(Uri.parse(apiUrl), body: body);
+      print("My object");
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         setLoading(false);
         var jsonData = jsonDecode(response.body);
+        print("My daraa$jsonData");
 
         var data = PayRechargeModal.fromJson(jsonData);
         _paymentMessage = data.message.toString();

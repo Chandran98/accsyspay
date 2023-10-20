@@ -28,7 +28,7 @@ class _BillerDetailsScreenState extends State<BillerDetailsScreen> {
     var provider =
         Provider.of<UtilityProvider>(context, listen: false).fetchbilldetails;
     var theme = Provider.of<ThemeProvider>(context);
-    var billData = loader.fetchbilldetails.details;
+    var billData = loader.fetchbilldetails;
     return Scaffold(
         body: SafeArea(
             child: Scaffold(
@@ -41,7 +41,7 @@ class _BillerDetailsScreenState extends State<BillerDetailsScreen> {
           ? const CircularProgressIndicator()
           : loader.fetchbilldetails.status == "error"
               ? Center(
-                  child: Text(billData.responseMessage),
+                  child: Text("Failed - Please try again"),
                 )
               : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -78,7 +78,7 @@ class _BillerDetailsScreenState extends State<BillerDetailsScreen> {
                                     color: Sticky.getColorItem()),
                                 child: Center(
                                     child: Text(
-                                  billData.customerName[0],
+                                  billData.name[0],
                                   style: TextStyle(
                                       color: white,
                                       fontSize: 13.sp,
@@ -86,7 +86,7 @@ class _BillerDetailsScreenState extends State<BillerDetailsScreen> {
                                 )),
                               ),
                               title: Text(
-                                billData.customerName,
+                                billData.name,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 13.sp,
@@ -136,16 +136,16 @@ class _BillerDetailsScreenState extends State<BillerDetailsScreen> {
 
                                 TabCard(
                                   titletext: "Txn Id",
-                                  text: billData.transactionId.substring(0, 15),
+                                  text: billData.referenceId.substring(0, 15),
                                 ),
-                                TabCard(
-                                  titletext: "Bill Date",
-                                  text: billData.billDate,
-                                ),
-                                TabCard(
-                                  titletext: "Due Date",
-                                  text: billData.billDueDate,
-                                ),
+                                // TabCard(
+                                //   titletext: "Bill Date",
+                                //   text: billData.b,
+                                // ),
+                                // TabCard(
+                                //   titletext: "Due Date",
+                                //   text: billData.billDueDate,
+                                // ),
 
                                 spacer20Height,
                                 const Divider(),
@@ -200,7 +200,7 @@ class _BillerDetailsScreenState extends State<BillerDetailsScreen> {
                                 MaterialPageRoute(
                                     builder: (_) => UtilityAuthenticateScreen(
                                           amount: billData.billAmount,
-                                          txId: billData.transactionId,
+                                          txId: billData.referenceId,
                                         )));
                           },
                           title: "Proceed",
@@ -208,6 +208,7 @@ class _BillerDetailsScreenState extends State<BillerDetailsScreen> {
                           loader: loader.loading,
                         ),
                       ],
+                      // 01215029487
                     ),
                   ),
                 ),

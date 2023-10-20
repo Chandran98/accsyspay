@@ -23,29 +23,22 @@ class _ServiceWidgetState extends State<ServiceWidget> {
 
   @override
   void initState() {
-    // _categoryData.add(CategoryModel(
-    //     id: 1, name: 'Mobile', image: "assets/icons/recharge.png"));
-    // _categoryData
-    // .add(CategoryModel(id: 4, name: 'DTH', image: "assets/icons/dth.png"));
-    // _categoryData.add(
-    //     CategoryModel(id: 12, name: 'Fastag', image: "assets/icons/toll.png"));
-    // _categoryData.add(CategoryModel(
-    //     id: 4, name: 'flight', image: "assets/icons/flight_ticket.png"));
+    // {,"WATER":"WATER","MUNICIPALITY":"MUNICIPALITY","FASTAG":"FASTAG","CABLE":"CABLE","GASCYLINDER":"GASCYLINDER"}
     _categoryData.add(CategoryModel(
-        id: 3, name: 'Electricity', image: "assets/icons/idea.png"));
+        id: "ELECTRICITY", name: 'Electricity', image: "assets/icons/idea.png"));
     _categoryData.add(CategoryModel(
-        id: 0, name: 'LPG Gas', image: "assets/icons/gas-cylinder.png"));
+        id: "GASCYLINDER", name: 'LPG Gas', image: "assets/icons/gas-cylinder.png"));
     // _categoryData.add(CategoryModel(
-    //     id: 6, name: ' Mobile Postpaid', image: "assets/icons/smartphone.png"));
+    //     id: "FASTAG", name: ' Fastag', image: "assets/icons/toll.png"));
 
     _categoryData.add(CategoryModel(
-        id: 13, name: 'Cable TV', image: "assets/icons/tvapp.png"));
+        id: "CABLE", name: 'Cable TV', image: "assets/icons/tvapp.png"));
     _categoryData.add(CategoryModel(
-        id: 5, name: 'LandLine', image: "assets/icons/landline2.png"));
+        id: "LANDLINE", name: 'LandLine', image: "assets/icons/landline2.png"));
     _categoryData.add(CategoryModel(
-        id: 7, name: 'Broadband', image: "assets/icons/router1.png"));
+        id: "BROADBAND", name: 'Broadband', image: "assets/icons/router1.png"));
     _categoryData.add(CategoryModel(
-      id: 9,
+      id: "WATER",
       name: 'Water',
       image: "assets/icons/drop.png",
     ));
@@ -55,20 +48,20 @@ class _ServiceWidgetState extends State<ServiceWidget> {
     //     id: 8, name: 'Broadband\n Prepaid', image: "assets/icons/router.png"));
 
     _categoryData.add(CategoryModel(
-        id: 11, name: 'Life Insurance', image: "assets/icons/li.png"));
+        id: "11", name: 'Life Insurance', image: "assets/icons/li.png"));
 
     _categoryData.add(CategoryModel(
-        id: 19, name: 'Insurance', image: "assets/icons/insurance2.png"));
+        id: "19", name: 'Insurance', image: "assets/icons/insurance2.png"));
     _categoryData.add(CategoryModel(
-        id: 14, name: 'Health Insurance', image: "assets/icons/hi.png"));
+        id: "14", name: 'Health Insurance', image: "assets/icons/hi.png"));
     _categoryData.add(CategoryModel(
-        id: 2, name: 'Piped Gas', image: "assets/icons/gas-pipe.png"));
+        id: "GAS", name: 'Piped Gas', image: "assets/icons/gas-pipe.png"));
 
     _categoryData.add(CategoryModel(
-        id: 16, name: 'Municipal Taxes', image: "assets/icons/tax2.png"));
+        id: "MUNICIPALITY", name: 'Municipal Taxes', image: "assets/icons/tax2.png"));
 
     _categoryData.add(
-        CategoryModel(id: 118, name: 'Train', image: "assets/icons/train.png"));
+        CategoryModel(id: "118", name: 'Train', image: "assets/icons/train.png"));
     // _categoryData.add(CategoryModel(
     //     id: 12, name: 'House Rent', image: "assets/icons/rent_payment.png"));
     // _categoryData.add(CategoryModel(
@@ -179,7 +172,7 @@ class _ServiceWidgetState extends State<ServiceWidget> {
 }
 
 class CategoryModel {
-  int id;
+  String id;
   String name;
   String image;
   Function onTap;

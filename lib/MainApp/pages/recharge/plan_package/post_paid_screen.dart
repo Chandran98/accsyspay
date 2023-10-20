@@ -34,7 +34,7 @@ class _PostpaidPageScreenState extends State<PostpaidPageScreen> {
     var provider = Provider.of<RechargeProvider>(context);
     var theme = Provider.of<ThemeProvider>(context);
     var postPaid =
-        Provider.of<RechargeProvider>(context, listen: false).postpaid;
+        Provider.of<RechargeProvider>(context, listen: false).postPaidBillAmount;
     void onBack() {
       // ignore: prefer_const_constructors
       Navigator.of(context).pop();
@@ -67,44 +67,44 @@ class _PostpaidPageScreenState extends State<PostpaidPageScreen> {
                             radius: 10,
                             showShadow: true,
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              top: 8.0,
-                            ),
-                            child: ListTile(
-                              tileColor: theme.darkTheme?black:white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)),
-                              subtitle: Text(
-                                provider.mobile,
-                                style:  GoogleFonts.inter(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              leading: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Sticky.getColorItem()),
-                                child: Center(
-                                    child: Text(
-                                  postPaid.details.name[0],
-                                  style:  GoogleFonts.inter(
-                                      color: white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w600),
-                                )),
-                              ),
-                              title: Text(
-                                postPaid.details.name,
-                                style:  GoogleFonts.inter(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
+                          // child: Padding(
+                          //   padding: const EdgeInsets.only(
+                          //     top: 8.0,
+                          //   ),
+                          //   child: ListTile(
+                          //     tileColor: theme.darkTheme?black:white,
+                          //     shape: RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.circular(12)),
+                          //     subtitle: Text(
+                          //       provider.mobile,
+                          //       style:  GoogleFonts.inter(
+                          //           color: Colors.grey,
+                          //           fontWeight: FontWeight.w500),
+                          //     ),
+                          //     leading: Container(
+                          //       height: 50,
+                          //       width: 50,
+                          //       decoration: BoxDecoration(
+                          //           shape: BoxShape.circle,
+                          //           color: Sticky.getColorItem()),
+                          //       child: Center(
+                          //           child: Text(
+                          //         postPaid.details.name[0],
+                          //         style:  GoogleFonts.inter(
+                          //             color: white,
+                          //             fontSize: 17,
+                          //             fontWeight: FontWeight.w600),
+                          //       )),
+                          //     ),
+                          //     title: Text(
+                          //       postPaid.details.name,
+                          //       style:  GoogleFonts.inter(
+                          //         fontWeight: FontWeight.w600,
+                          //         fontSize: 18,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ),
                         spacer10Height,
                         Container(

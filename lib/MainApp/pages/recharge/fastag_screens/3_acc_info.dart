@@ -36,7 +36,7 @@ class _FastagAccInfoScreenState extends State<FastagAccInfoScreen> {
     var provider =
         Provider.of<UtilityProvider>(context, listen: false).fetchbilldetails;
     var theme = Provider.of<ThemeProvider>(context);
-    var billData = loader.fetchbilldetails.details;
+    var billData = loader.fetchbilldetails;
     return WillPopScope(
       onWillPop: () {
         onBack();
@@ -88,7 +88,7 @@ class _FastagAccInfoScreenState extends State<FastagAccInfoScreen> {
                                     color: Sticky.getColorItem()),
                                 child: Center(
                                     child: Text(
-                                  billData.customerName[0],
+                                  billData.name[0],
                                   style: GoogleFonts.inter(
                                       color: white,
                                       fontSize: 17,
@@ -96,7 +96,7 @@ class _FastagAccInfoScreenState extends State<FastagAccInfoScreen> {
                                 )),
                               ),
                               title: Text(
-                                billData.customerName,
+                                billData.name,
                                 style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 18,
@@ -132,7 +132,7 @@ class _FastagAccInfoScreenState extends State<FastagAccInfoScreen> {
                                 // ),
                                 TabCard(
                                   titletext: "Name",
-                                  text: billData.customerName,
+                                  text: billData.name,
                                 ),
                                 // TabCard(
                                 //   titletext: "Bill Date",
@@ -216,7 +216,7 @@ class _FastagAccInfoScreenState extends State<FastagAccInfoScreen> {
                                       builder: (_) => FastagDthAuthenticateScreen(
                                           title: "Fastag",
                                           amount: _amountController.text,
-                                          txId: billData.transactionId)));
+                                          txId: billData.referenceId)));
                             }
                           },
                           child: Container(
