@@ -34,10 +34,10 @@ class DetailsBiller {
     String type;
     String name;
     String billAmount;
-    List<Fetchdatum> fetchdata;
+    // List<Fetchdatum> fetchdata;
     String timestamp;
     String referenceId;
-    YourRequest yourRequest;
+    // YourRequest yourRequest;
 
     DetailsBiller({
          this.status,
@@ -45,10 +45,10 @@ class DetailsBiller {
          this.type,
          this.name,
          this.billAmount,
-         this.fetchdata,
+        //  this.fetchdata,
          this.timestamp,
          this.referenceId,
-         this.yourRequest,
+        //  this.yourRequest,
     });
 
     factory DetailsBiller.fromJson(Map<String, dynamic> json) => DetailsBiller(
@@ -57,10 +57,10 @@ class DetailsBiller {
         type: json["type"],
         name: json["name"],
         billAmount: json["billAmount"],
-        fetchdata: List<Fetchdatum>.from(json["fetchdata"].map((x) => Fetchdatum.fromJson(x))),
+        // fetchdata: List<Fetchdatum>.from(json["fetchdata"].map((x) => Fetchdatum.fromJson(x))),
         timestamp: json["timestamp"],
         referenceId: json["reference_id"],
-        yourRequest: YourRequest.fromJson(json["your_request"]),
+        // yourRequest: YourRequest.fromJson(json["your_request"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -69,10 +69,10 @@ class DetailsBiller {
         "type": type,
         "name": name,
         "billAmount": billAmount,
-        "fetchdata": List<dynamic>.from(fetchdata.map((x) => x.toJson())),
+        // "fetchdata": List<dynamic>.from(fetchdata.map((x) => x.toJson())),
         "timestamp": timestamp,
         "reference_id": referenceId,
-        "your_request": yourRequest.toJson(),
+        // "your_request": yourRequest.toJson(),
     };
 }
 

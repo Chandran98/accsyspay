@@ -40,6 +40,8 @@ class UtilityProvider extends ChangeNotifier {
 
   String _params1 = "";
   get params1 => _params1;
+  String _accountUlity = "";
+  get accountUlity => _accountUlity;
   String _params2 = "";
   get params2 => _params2;
   String _params1value = "";
@@ -138,23 +140,23 @@ class UtilityProvider extends ChangeNotifier {
   }
 
   Future<ModalDetails> fetchAmountBiller(
-      id, param1, params1value,  context) async {
+      id, param1, account,params1name,params1value,  context) async {
     final PrefService prefService = PrefService();
     var userMobile = await prefService.getMobile("mobile");
     final apiUrl = AppURl.fetchAmount;
     print(param1);
 
-    _params1 = param1;
-    _params2 = params2;
+    _params1 = params1name;
+    _accountUlity = account;
     _params1value = params1value;
     _params2value = params2value;
 _biller=id;
     final body = {
       'biller': id,
-      "param1_value": userMobile,
-      "mobile": params1value,
-      // "param1_name": params1,
-      // "param2_name": params2,
+      // "param1_value": userMobile,
+      "mobile": account,
+      "param1_name": params1name,
+      "param1_value": params1value,
       // "param2_value": params2value,
       // "category": _categoryId
     };
@@ -171,7 +173,7 @@ print(response.body);print(response.statusCode);
         print(jsonData);
         DetailsBiller dataModal = DetailsBiller.fromJson(jsonData["details"]);
         _fetchbilldetails = dataModal;
-
+print("_fetchbilldetails$_fetchbilldetails");
         _fetchbilldetails.status == "success"
             ? Navigator.push(context,
                 MaterialPageRoute(builder: (_) => const BillerDetailsScreen()))
@@ -199,12 +201,12 @@ print(response.body);print(response.statusCode);
         notifyListeners();
       } else {
         setLoading(false);
-        Utils.toastMessage('Failed to Fetch Biller');
+        Utils.toastMessage('No bill available');
       }
     } catch (e) {
       setLoading(false);
       print('Failed to connect to server: $e');
-      Utils.toastMessage('Failed to Fetch Biller');
+      Utils.toastMessage('No bill available');
     }
   }
 
@@ -347,7 +349,7 @@ _biller=id;
     var code = voucherCode == "" ? "0" : voucherCode;
     print("my data");
     final body = {
-      'mobile': _params1value,
+      'mobile': _accountUlity,
       "biller": _biller,
       "amount": amount,
       "wallet_amount": walletAmount,
@@ -358,7 +360,7 @@ _biller=id;
       "category": _categoryId,
       // "transid": txId,
       "param1_name": _params1,
-      "param1_value": "",
+      "param1_value": _params1value,
       "param2_name": _params2,
       "param2_value": _params2value,
     };
@@ -376,6 +378,7 @@ _biller=id;
         print("My daraa$jsonData");
 
         var data = PayRechargeModal.fromJson(jsonData);
+        print("object$data");
         _paymentMessage = data.message.toString();
         _paymentStatus = data.status.toString();
         Utils.toastMessage(_paymentStatus);

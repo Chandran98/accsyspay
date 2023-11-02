@@ -147,14 +147,18 @@ class _BillerScreenState extends State<BillerScreen> {
                                   _textcontroller.clear();
                                   // provider.getBillerParams(
                                   //     data.billerId, context);
-
+                                  print(data.optional2);
+                                  print("object");
+                                  print(data.optional1);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => UtilityFetchScreen(
-                                              name: data.service,
-                                              id: data.code,
-                                              mode: data.param
+                                                name: data.service,
+                                                id: data.code,
+                                                mode: data.param,
+                                                optional1: data.optional1,
+                                                optional2: data.optional2,
                                               )));
                                 },
                                 child: Container(

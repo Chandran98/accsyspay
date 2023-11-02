@@ -47,7 +47,7 @@ class _FastagDthAuthenticateScreenState
                       color: blackColor),
                   children: <TextSpan>[
                     TextSpan(
-                        text: 'Secert pin ',
+                        text: 'Secret pin ',
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.bold,
                             fontSize: 23.sp,
@@ -66,7 +66,7 @@ class _FastagDthAuthenticateScreenState
             // Padding(
             //   padding: const EdgeInsets.symmetric(horizontal: 18.0),
             //   child: Text(
-            //     "Please Enter your Secert pin to proceed...",
+            //     "Please Enter your Secret pin to proceed...",
             //     style: GoogleFonts.inter(
             //       fontSize: 30.0,
             //       fontWeight: FontWeight.w600,
