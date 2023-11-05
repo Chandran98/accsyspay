@@ -57,7 +57,7 @@ class _AvailableBusDataState extends State<AvailableBusData> {
             children: [
               // spacer20Height,
               Text(
-                "${fromD.cityName} - ${toD.cityName}",
+                "${fromD.name} - ${toD.name}",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                     color: Colors.white,
@@ -66,7 +66,7 @@ class _AvailableBusDataState extends State<AvailableBusData> {
               ),
               spacer5Height,
               Text(
-                "${cityProvider.availableTrips.length} Buses Available",
+                "${cityProvider.availableTrips.details.length} Buses Available",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                     color: Colors.white,
@@ -81,18 +81,23 @@ class _AvailableBusDataState extends State<AvailableBusData> {
             spacer20Height,
             Expanded(
               child: ListView.builder(
-                itemCount: cityProvider.availableTrips.length,
+                itemCount: cityProvider.availableTrips.details.length,
                 itemBuilder: (BuildContext context, int index) {
-                  var data = cityProvider.availableTrips[index];
+                  var data = cityProvider.availableTrips.details[index];
                   return Padding(
                     padding: const EdgeInsets.all(8),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(5),
                       onTap: () {
-                        print(data['id']);
+                        // print(data['id']);
                         Provider.of<BusBookingProvider>(context, listen: false)
                             .fetchSeatLayout(
-                                data['id'], data['travels'], context);
+                                fromD.name,
+                                toD.name,
+                                dateD,
+                                data.inventoryType,
+                                data.routeScheduleId,
+                                context);
                       },
                       child: Container(
                         padding: const EdgeInsets.all(7),
@@ -114,33 +119,34 @@ class _AvailableBusDataState extends State<AvailableBusData> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  data['travels'],
+                                  data.operatorName,
                                   style: GoogleFonts.inter(
                                     fontSize: 12.sp,
                                     color: theme.darkTheme ? white : black,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: appColor,
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                        "from ₹ ${_getMinimumFare(data['fares'])}",
-                                        style: GoogleFonts.inter(
-                                          fontSize: 10.sp,
-                                          color: white,
-                                          fontWeight: FontWeight.w500,
-                                        )),
-                                  ),
-                                ),
+                                Text("")
+                                // Container(
+                                //   decoration: BoxDecoration(
+                                //       color: appColor,
+                                //       borderRadius: BorderRadius.circular(8)),
+                                //   child: Padding(
+                                //     padding: const EdgeInsets.all(8.0),
+                                //     child: Text("",
+                                //         // "from ₹ ${_getMinimumFare(data.fare)}",
+                                //         style: GoogleFonts.inter(
+                                //           fontSize: 10.sp,
+                                //           color: white,
+                                //           fontWeight: FontWeight.w500,
+                                //         )),
+                                //   ),
+                                // ),
                               ],
                             ),
                             spacer5Height,
                             Text(
-                              data['busType'],
+                              data.busType,
                               style: GoogleFonts.inter(
                                 fontSize: 9.sp,
                                 color: theme.darkTheme ? white : black,
@@ -160,7 +166,7 @@ class _AvailableBusDataState extends State<AvailableBusData> {
                                     ),
                                     spacer10Width,
                                     Text(
-                                      "${Utils.convertTo12HourFormat(data['departureTime'])} - ${Utils.convertTo12HourFormat(data['arrivalTime'])}",
+                                      "${data.departureTime} - ${data.arrivalTime}",
                                       style: GoogleFonts.inter(
                                         color: theme.darkTheme ? white : black,
                                         fontSize: 11.sp,
@@ -178,7 +184,7 @@ class _AvailableBusDataState extends State<AvailableBusData> {
                                     ),
                                     spacer10Width,
                                     Text(
-                                      data["duration"],
+                                      data.durationInMins.toString(),
                                       style: GoogleFonts.inter(
                                         color: theme.darkTheme ? white : black,
                                         fontSize: 11.sp,
@@ -196,7 +202,7 @@ class _AvailableBusDataState extends State<AvailableBusData> {
                                     ),
                                     spacer10Width,
                                     Text(
-                                      '${data['availableSeats']} Seats',
+                                      '${data.availableSeats} Seats',
                                       style: GoogleFonts.inter(
                                         color: theme.darkTheme ? white : black,
                                         fontSize: 11.sp,
@@ -254,11 +260,11 @@ class _AvailableBusDataState extends State<AvailableBusData> {
         DateTime.fromMillisecondsSinceEpoch(int.parse(time) * 100000000000));
   }
 
-  int _getMinimumFare(fares) {
-    String minFare = fares.runtimeType == String
-        ? fares
-        : fares.reduce((current, next) =>
-            double.parse(current) < double.parse(next) ? current : next);
-    return double.parse(minFare).round();
-  }
+  // int _getMinimumFare(fares) {
+  //   String minFare = fares.runtimeType == String
+  //       ? fares
+  //       : fares.reduce((current, next) =>
+  //           double.parse(current) < double.parse(next) ? current : next);
+  //   return double.parse(minFare).round();
+  // }
 }

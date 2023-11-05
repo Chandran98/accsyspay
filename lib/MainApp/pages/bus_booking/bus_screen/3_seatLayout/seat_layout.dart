@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 
-import 'package:Accsys_Pay/MainApp/utils/busBooking/seat_layout_widget.dart';
-import 'package:Accsys_Pay/MainApp/Models/bus_modal/seat_layout_state_model.dart';
-import 'package:Accsys_Pay/MainApp/utils/busBooking/seat_state.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../../Models/bus_modal/seat_layout_state_model.dart';
+import '../../../../utils/busBooking/seat_layout_widget.dart';
+import '../../../../utils/busBooking/seat_state.dart';
 
 class SeatLayoutPage extends StatefulWidget {
   final void Function(
@@ -52,68 +53,57 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
   Widget build(BuildContext context) {
     return Container(
         // alignment: Alignment.center,
+        width: 80.w,
+        height: 70.h,
         decoration: BoxDecoration(
             color: const Color.fromARGB(255, 255, 255, 255),
             borderRadius: BorderRadius.circular(10)),
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 90, left: 30),
-              child: SizedBox(
-                width: double.infinity,
-                height: double.infinity,
-                child: SeatLayoutWidget(
-                  onSeatStateChanged: (rowI, colI, seatState) {
-                    dynamic selectedSeat = currentSeats
-                        .where((e) =>
-                            e['row'] == rowI.toString() &&
-                            e['column'] == colI.toString())
-                        .toList();
-                    widget.onSeatStateChanged(
-                        rowI, colI, seatState, selectedSeat);
-                  },
-                  stateModel: SeatLayoutStateModel(
-                      sleeperSelectedSeat: 'assets/images/birth_selected.svg',
-                      sleeperUnSelectedSeat:
-                          'assets/images/birth_unselected.svg',
-                      sleeperSoldSeat: 'assets/images/birth_sold.svg',
-                      sleeperFemaleSeatSelected:
-                          'assets/images/birth_ladies_selected.svg',
-                      sleeperFemaleSeatUnselected:
-                          'assets/images/birth_ladies_unselected.svg',
-                      sleeperFemaleSeatSold:
-                          'assets/images/birth_ladies_sold.svg',
-                      sleeperMaleSeatSelected:
-                          'assets/images/birth_male_selected.svg',
-                      sleeperMaleSeatUnselected:
-                          'assets/images/birth_male_unselected.svg',
-                      sleeperMaleSeatSold: 'assets/images/birth_male_sold.svg',
-                      sleeperDisabledSeat: 'assets/images/birth_disabled.svg',
-                      seaterSelectedSeat: 'assets/images/seat_selected.svg',
-                      seaterUnSelectedSeat: 'assets/images/seat_unselected.svg',
-                      seaterSoldSeat: 'assets/images/seat_sold.svg',
-                      seaterFemaleSeatSelected:
-                          'assets/images/seat_ladies_selected.svg',
-                      seaterFemaleSeatUnselected:
-                          'assets/images/seat_ladies_unselected.svg',
-                      seaterFemaleSeatSold:
-                          'assets/images/seat_ladies_sold.svg',
-                      seaterMaleSeatSelected:
-                          'assets/images/seat_male_selected.svg',
-                      seaterMaleSeatUnselected:
-                          'assets/images/seat_male_unselected.svg',
-                      seaterMaleSeatSold: 'assets/images/seat_male_sold.svg',
-                      seaterDisabledSeat: 'assets/images/seat_disabled.svg',
-                      rows: rowN,
-                      cols: colN,
-                      seatSvgSize: 55,
-                      seater: seater,
-                      sleeper: sleeper,
-                      selectedSeats: widget.selectedSeats),
-                ),
-              ),
-            )
-          ],
+        child: Padding(
+          padding: EdgeInsets.only(left: 8.0.w, top: 1.h),
+          child: SeatLayoutWidget(
+            onSeatStateChanged: (rowI, colI, seatState) {
+              dynamic selectedSeat = currentSeats
+                  .where((e) =>
+                      e['row'] == rowI.toString() &&
+                      e['column'] == colI.toString())
+                  .toList();
+              widget.onSeatStateChanged(rowI, colI, seatState, selectedSeat);
+            },
+            stateModel: SeatLayoutStateModel(
+                sleeperSelectedSeat: 'assets/images/birth_selected.svg',
+                sleeperUnSelectedSeat: 'assets/images/birth_unselected.svg',
+                sleeperSoldSeat: 'assets/images/birth_sold.svg',
+                sleeperFemaleSeatSelected:
+                    'assets/images/birth_ladies_selected.svg',
+                sleeperFemaleSeatUnselected:
+                    'assets/images/birth_ladies_unselected.svg',
+                sleeperFemaleSeatSold: 'assets/images/birth_ladies_sold.svg',
+                sleeperMaleSeatSelected:
+                    'assets/images/birth_male_selected.svg',
+                sleeperMaleSeatUnselected:
+                    'assets/images/birth_male_unselected.svg',
+                sleeperMaleSeatSold: 'assets/images/birth_male_sold.svg',
+                sleeperDisabledSeat: 'assets/images/birth_disabled.svg',
+                seaterSelectedSeat: 'assets/images/seat_selected.svg',
+                seaterUnSelectedSeat: 'assets/images/seat_unselected.svg',
+                seaterSoldSeat: 'assets/images/seat_sold.svg',
+                seaterFemaleSeatSelected:
+                    'assets/images/seat_ladies_selected.svg',
+                seaterFemaleSeatUnselected:
+                    'assets/images/seat_ladies_unselected.svg',
+                seaterFemaleSeatSold: 'assets/images/seat_ladies_sold.svg',
+                seaterMaleSeatSelected: 'assets/images/seat_male_selected.svg',
+                seaterMaleSeatUnselected:
+                    'assets/images/seat_male_unselected.svg',
+                seaterMaleSeatSold: 'assets/images/seat_male_sold.svg',
+                seaterDisabledSeat: 'assets/images/seat_disabled.svg',
+                rows: rowN,
+                cols: colN,
+                seatSvgSize: 50,
+                seater: seater,
+                sleeper: sleeper,
+                selectedSeats: widget.selectedSeats),
+          ),
         ));
   }
 }

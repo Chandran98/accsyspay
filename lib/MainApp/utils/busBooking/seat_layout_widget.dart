@@ -1,7 +1,6 @@
 import 'package:Accsys_Pay/MainApp/Models/bus_modal/seat_layout_state_model.dart';
 import 'package:Accsys_Pay/MainApp/Models/bus_modal/seat_model.dart';
 import 'package:Accsys_Pay/MainApp/utils/busBooking/seat_state.dart';
-import 'package:Accsys_Pay/MainApp/utils/busBooking/seat_type.dart';
 import 'package:Accsys_Pay/MainApp/utils/busBooking/seat_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -18,88 +17,74 @@ class SeatLayoutWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        // maxScale: 5,
-        // minScale: 0.8,
-        // boundaryMargin: const EdgeInsets.all(8),
-        // constrained: false,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ...List<int>.generate(stateModel.cols + 1, (colI) => colI)
-                  .map<Row>(
-                    (colI) => Row(
-                      children: [
-                        ...List<int>.generate(
-                                stateModel.rows + 1, (rowI) => rowI)
-                            .reversed
-                            .map<SeatWidget>((rowI) => SeatWidget(
-                                  model: SeatModel(
-                                      seatState: _getSeatState(
-                                          rowI,
-                                          colI,
-                                          stateModel.sleeper +
-                                              stateModel.seater),
-                                      seatType: _getSeatType(
-                                          rowI,
-                                          colI,
-                                          stateModel.sleeper,
-                                          stateModel.seater),
-                                      rowI: rowI,
-                                      colI: colI,
-                                      seatSvgSize: stateModel.seatSvgSize,
-                                      sleeperSelectedSeat:
-                                          stateModel.sleeperSelectedSeat,
-                                      sleeperUnSelectedSeat:
-                                          stateModel.sleeperUnSelectedSeat,
-                                      sleeperSoldSeat:
-                                          stateModel.sleeperSoldSeat,
-                                      sleeperFemaleSeatSelected:
-                                          stateModel.sleeperFemaleSeatSelected,
-                                      sleeperFemaleSeatUnselected: stateModel
-                                          .sleeperFemaleSeatUnselected,
-                                      sleeperFemaleSeatSold:
-                                          stateModel.sleeperFemaleSeatSold,
-                                      sleeperMaleSeatSelected:
-                                          stateModel.sleeperMaleSeatSelected,
-                                      sleeperMaleSeatUnselected:
-                                          stateModel.sleeperMaleSeatUnselected,
-                                      sleeperMaleSeatSold:
-                                          stateModel.sleeperMaleSeatSold,
-                                      sleeperDisabledSeat:
-                                          stateModel.sleeperDisabledSeat,
-                                      seaterSelectedSeat:
-                                          stateModel.seaterSelectedSeat,
-                                      seaterUnSelectedSeat:
-                                          stateModel.seaterUnSelectedSeat,
-                                      seaterSoldSeat: stateModel.seaterSoldSeat,
-                                      seaterFemaleSeatSelected:
-                                          stateModel.seaterFemaleSeatSelected,
-                                      seaterFemaleSeatUnselected:
-                                          stateModel.seaterFemaleSeatUnselected,
-                                      seaterFemaleSeatSold:
-                                          stateModel.seaterFemaleSeatSold,
-                                      seaterMaleSeatSelected:
-                                          stateModel.seaterMaleSeatSelected,
-                                      seaterMaleSeatUnselected:
-                                          stateModel.seaterMaleSeatUnselected,
-                                      seaterMaleSeatSold:
-                                          stateModel.seaterMaleSeatSold,
-                                      seaterDisabledSeat:
-                                          stateModel.seaterDisabledSeat,
-                                      selectedSeats: stateModel.selectedSeats),
-                                  onSeatStateChanged: onSeatStateChanged,
-                                ))
-                            .toList()
-                      ],
-                    ),
-                  )
-                  .toList()
-            ],
-          ),
-        ));
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Column(
+        children: [
+          ...List<int>.generate(stateModel.cols + 1, (colI) => colI)
+              .map<Row>(
+                (colI) => Row(
+                  children: [
+                    ...List<int>.generate(stateModel.rows + 1, (rowI) => rowI)
+                        .reversed
+                        .map((rowI) => SeatWidget(
+                              model: SeatModel(
+                                  seatState: _getSeatState(rowI, colI,
+                                      stateModel.sleeper + stateModel.seater),
+                                  seatType: _getSeatType(rowI, colI,
+                                      stateModel.sleeper, stateModel.seater),
+                                  rowI: rowI,
+                                  colI: colI,
+                                  seatSvgSize: stateModel.seatSvgSize,
+                                  sleeperSelectedSeat:
+                                      stateModel.sleeperSelectedSeat,
+                                  sleeperUnSelectedSeat:
+                                      stateModel.sleeperUnSelectedSeat,
+                                  sleeperSoldSeat: stateModel.sleeperSoldSeat,
+                                  sleeperFemaleSeatSelected:
+                                      stateModel.sleeperFemaleSeatSelected,
+                                  sleeperFemaleSeatUnselected:
+                                      stateModel.sleeperFemaleSeatUnselected,
+                                  sleeperFemaleSeatSold:
+                                      stateModel.sleeperFemaleSeatSold,
+                                  sleeperMaleSeatSelected:
+                                      stateModel.sleeperMaleSeatSelected,
+                                  sleeperMaleSeatUnselected:
+                                      stateModel.sleeperMaleSeatUnselected,
+                                  sleeperMaleSeatSold:
+                                      stateModel.sleeperMaleSeatSold,
+                                  sleeperDisabledSeat:
+                                      stateModel.sleeperDisabledSeat,
+                                  seaterSelectedSeat:
+                                      stateModel.seaterSelectedSeat,
+                                  seaterUnSelectedSeat:
+                                      stateModel.seaterUnSelectedSeat,
+                                  seaterSoldSeat: stateModel.seaterSoldSeat,
+                                  seaterFemaleSeatSelected:
+                                      stateModel.seaterFemaleSeatSelected,
+                                  seaterFemaleSeatUnselected:
+                                      stateModel.seaterFemaleSeatUnselected,
+                                  seaterFemaleSeatSold:
+                                      stateModel.seaterFemaleSeatSold,
+                                  seaterMaleSeatSelected:
+                                      stateModel.seaterMaleSeatSelected,
+                                  seaterMaleSeatUnselected:
+                                      stateModel.seaterMaleSeatUnselected,
+                                  seaterMaleSeatSold:
+                                      stateModel.seaterMaleSeatSold,
+                                  seaterDisabledSeat:
+                                      stateModel.seaterDisabledSeat,
+                                  selectedSeats: stateModel.selectedSeats),
+                              onSeatStateChanged: onSeatStateChanged,
+                            ))
+                        .toList()
+                  ],
+                ),
+              )
+              .toList()
+        ],
+      ),
+    );
   }
 
   SeatState _getSeatState(row, col, List<dynamic> seats) {

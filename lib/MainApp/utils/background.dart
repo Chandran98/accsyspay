@@ -1,3 +1,4 @@
+import 'package:Accsys_Pay/MainApp/Theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
@@ -23,7 +24,7 @@ class Background extends StatelessWidget {
             right: 0,
             child: Image.asset(
               "assets/images/top1.png",
-              width: size.width
+              width: size.width,color: appColor,
             ),
           ),
           Positioned(
@@ -31,7 +32,7 @@ class Background extends StatelessWidget {
             right: 0,
             child: Image.asset(
               "assets/images/top2.png",
-              width: size.width
+              width: size.width,color: appColor,
             ),
           ),
           // Positioned(
@@ -47,7 +48,7 @@ class Background extends StatelessWidget {
             right: 0,
             child: Image.asset(
               "assets/images/bottom1.png",
-              width: size.width
+              width: size.width,color: appColor,
             ),
           ),
           Positioned(
@@ -55,7 +56,7 @@ class Background extends StatelessWidget {
             right: 0,
             child: Image.asset(
               "assets/images/bottom2.png",
-              width: size.width
+              width: size.width,color: appColor,
             ),
           ),
           child

@@ -110,11 +110,11 @@ class SendReceiveSwitch extends StatelessWidget {
                       title: "Bus",
                       image: "assets/icons/bus1.png",
                       onTap: () {
-                        Utils.toastMessage("coming soon");
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (_) => const SearchCities()));
+                        // Utils.toastMessage("coming soon");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const SearchCities()));
                       },
                     ),
                   ],

@@ -128,13 +128,13 @@ class _SearchCitiesState extends State<SearchCities> {
                                   }
                                   return cityProvider.cities.where((city) {
                                     final cityName =
-                                        city.cityName.toUpperCase();
+                                        city.name.toUpperCase();
                                     return cityName.contains(
                                         textEditingValue.text.toUpperCase());
                                   });
                                 },
                                 displayStringForOption: (City city) =>
-                                    city.cityName,
+                                    city.name,
                                 fieldViewBuilder: (BuildContext context,
                                     TextEditingController controller,
                                     FocusNode focusNode,
@@ -190,13 +190,13 @@ class _SearchCitiesState extends State<SearchCities> {
                                   }
                                   return cityProvider.cities.where((city) {
                                     final cityName =
-                                        city.cityName.toUpperCase();
+                                        city.name.toUpperCase();
                                     return cityName.contains(
                                         textEditingValue.text.toUpperCase());
                                   });
                                 },
                                 displayStringForOption: (City city) =>
-                                    city.cityName,
+                                    city.name,
                                 fieldViewBuilder: (BuildContext context,
                                     TextEditingController controller,
                                     FocusNode focusNode,
@@ -284,7 +284,7 @@ class _SearchCitiesState extends State<SearchCities> {
                             from == "" || from == null && to == "" || to == null
                                 ? SizedBox()
                                 : Text(
-                                    "* Trip starts from ${from.cityName} and moves towards ${to.cityName} on ${_dateController.text}",
+                                    "* Trip starts from ${from.name} and moves towards ${to.name} on ${_dateController.text}",
                                     style: GoogleFonts.inter(
                                         color: theme.darkTheme ? white : black),
                                   ),
@@ -543,3 +543,90 @@ class CustomNameIcon extends StatelessWidget {
     );
   }
 }
+
+
+//  {
+//             "inventoryType": 130,
+//             "routeScheduleId": "859908786",
+//             "serviceId": "1410848",
+//             "fare": "1000",
+//             "departureTime": "10:30 PM",
+//             "arrivalTime": "7:00 AM",
+//             "availableSeats": 52,
+//             "operatorName": "SRS Travels and Logistics Private Limited",
+//             "cancellationPolicy": "[{\"cutoffTime\":\"12\",\"refundInPercentage\":\"0\"},{\"cutoffTime\":\"24\",\"refundInPercentage\":\"50\"},{\"cutoffTime\":\"168\",\"refundInPercentage\":\"80\"},{\"cutoffTime\":\"720\",\"refundInPercentage\":\"85\"}]",
+//             "boardingPoints": [
+//                 {
+//                     "id": "67802",
+//                     "location": "Lakdikapool S R S Travels",
+//                     "time": "10:30 PM"
+//                 },
+//                 {
+//                     "id": "9912",
+//                     "location": "Mehdi Patnam (Pillar No 50)",
+//                     "time": "10:40 PM"
+//                 },
+//                 {
+//                     "id": "9913",
+//                     "location": "Shamshabad (S R S travels)",
+//                     "time": "11:00 PM"
+//                 }
+//             ],
+//             "droppingPoints": [
+//                 {
+//                     "id": "1732",
+//                     "location": "Yelahanka",
+//                     "time": "07:00 AM"
+//                 },
+//                 {
+//                     "id": "29189",
+//                     "location": "Devanahalli By Pass",
+//                     "time": "07:05 AM"
+//                 },
+//                 {
+//                     "id": "11959",
+//                     "location": "Coroporation Circle",
+//                     "time": "07:10 AM"
+//                 },
+//                 {
+//                     "id": "4995",
+//                     "location": "Heball Flyover",
+//                     "time": "07:15 AM"
+//                 },
+//                 {
+//                     "id": "21756",
+//                     "location": "mekhri circle",
+//                     "time": "07:20 AM"
+//                 },
+//                 {
+//                     "id": "11052",
+//                     "location": "Shivanand Circle",
+//                     "time": "07:25 AM"
+//                 },
+//                 {
+//                     "id": "2641",
+//                     "location": "Majestic(Ananda Rao circle)",
+//                     "time": "07:30 AM"
+//                 },
+//                 {
+//                     "id": "14231",
+//                     "location": "Kalasipalyam",
+//                     "time": "07:35 AM"
+//                 }
+//             ],
+//             "busType": "2+2, Mercedes Benz Multi Axle Semi Sleeper, AC, Video",
+//             "partialCancellationAllowed": false,
+//             "idProofRequired": false,
+//             "operatorId": 11,
+//             "commPCT": 5.5,
+//             "mTicketAllowed": false,
+//             "isRTC": false,
+//             "isOpTicketTemplateRequired": false,
+//             "isOpLogoRequired": false,
+//             "isFareUpdateRequired": false,
+//             "is_child_concession": false,
+//             "isGetLayoutByBPDP": false,
+//             "socialDistancing": false,
+//             "durationInMins": 510,
+//             "busAmenities": null
+//         },
