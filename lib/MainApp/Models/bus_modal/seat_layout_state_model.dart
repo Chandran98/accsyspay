@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:Accsys_Pay/MainApp/utils/busBooking/seat_type.dart';
 
 class SeatLayoutStateModel extends Equatable {
   final int rows;

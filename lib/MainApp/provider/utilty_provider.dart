@@ -216,10 +216,10 @@ print("_fetchbilldetails$_fetchbilldetails");
     var userMobile = await prefService.getMobile("mobile");
     final apiUrl = AppURl.fetchAmount;
 
-    _params1 = param1;
-    _params2 = params2;
-    _params1value = params1value;
-    _params2value = params2value;
+    _accountUlity = params1value;
+    // _params2 = params2;
+    // _params1value = params1value;
+    // _params2value = params2value;
 _biller=id;
     final body = {
       'biller': id,
