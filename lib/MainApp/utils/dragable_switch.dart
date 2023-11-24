@@ -92,14 +92,15 @@ class SendReceiveSwitch extends StatelessWidget {
                       title: "Fastag",
                       image: "assets/icons/toll.png",
                       onTap: () {
+                        // print(object)
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (_) => (FastagBillerScreen(
-                                      id: "12",
+                                      id: "FASTAG",
                                       title: "Fastag",
                                     ))));
-                        provider.fetchBillers("12");
+                        provider.fetchBillers("FASTAG");
 
                         walletProvider.getCharges();
                       },
@@ -109,11 +110,11 @@ class SendReceiveSwitch extends StatelessWidget {
                       title: "Bus",
                       image: "assets/icons/bus1.png",
                       onTap: () {
-                        Utils.toastMessage("coming soon");
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (_) => const SearchCities()));
+                        // Utils.toastMessage("coming soon");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const SearchCities()));
                       },
                     ),
                   ],

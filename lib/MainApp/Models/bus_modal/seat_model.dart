@@ -1,5 +1,4 @@
 import 'package:Accsys_Pay/MainApp/utils/busBooking/seat_state.dart';
-import 'package:Accsys_Pay/MainApp/utils/busBooking/seat_type.dart';
 import 'package:equatable/equatable.dart';
 
 class SeatModel extends Equatable {

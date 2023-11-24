@@ -2,11 +2,14 @@
 
 import 'dart:convert';
 import 'package:Accsys_Pay/MainApp/Models/prepaid_offer_modals.dart';
+import 'package:Accsys_Pay/MainApp/constant/colors/colors.dart';
 import 'package:Accsys_Pay/MainApp/pages/main_screen.dart';
 import 'package:Accsys_Pay/MainApp/utils/hover_message.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import '../../pages/screens.dart';
+import '../pages/recharge/mobile_pin_screen.dart';
+import '../pages/recharge/plan_package/prepaidplan.dart';
 import '../utils/alertDialogBox/Custom_alert_dialogbox.dart';
 import "../Models/Operator_model.dart";
 import '../Models/post_paid_model.dart';
@@ -37,6 +40,8 @@ class RechargeProvider extends ChangeNotifier {
 
   String _rechargeMessage = "";
   get rechargeMessage => _rechargeMessage;
+  String _postPaidBillAmount = "";
+  get postPaidBillAmount => _postPaidBillAmount;
 
   String _rechargeStatus = "";
   get rechargeStatus => _rechargeStatus;
@@ -93,13 +98,13 @@ class RechargeProvider extends ChangeNotifier {
                     mobileNo: _fetchoperator.mobile,
                     circle: _fetchoperator.circle,
                     onTap: () {
-                      prepaidMobileOffer(mobile, data.operatorId, context);
+                      // prepaidMobileOffer(mobile, data.operatorId, context);
                       prepaidMobilePlan(
                           mobile, data.operatorId, data.circleId, context);
                       Navigator.push(
                         context,
                         PageTransition(
-                          child: RechargePageScreen(),
+                          child: PrePaidPlanScreen(),
                           type: PageTransitionType.rightToLeft,
                         ),
                       );
@@ -215,6 +220,7 @@ class RechargeProvider extends ChangeNotifier {
           loadData.add(utility);
         }
         _postpaidOperators = loadData;
+        print("object ${_postpaidOperators.map((e) => e.details.map((e) => e.operatorId))}");
 
         notifyListeners();
       } else {
@@ -392,23 +398,31 @@ class RechargeProvider extends ChangeNotifier {
 
     final apiUrl = AppURl.postPaidPlan;
     final body = {'mobile': mobileController, "operator": operatorId};
+    print(body);
     setLoading(true);
     try {
       final response = await http.post(Uri.parse(apiUrl), body: body);
       if (response.statusCode == 200) {
         setLoading(false);
         var jsonData = jsonDecode(response.body);
-        var data = PostpaidBillModal.fromJson(jsonData);
-        _postpaidStatus = data.status;
-        _postpaid = data;
+        print(jsonData);
+        // var data = PostpaidBillModal.fromJson(jsonData);
+        _postpaidStatus = jsonData["status"];
+
+                  print(_postpaidStatus);
+        // _postPaidBillAmount=jsonData["details"];
+        // 9087772949
+   
+                  print(jsonData["details"]["billAmount"]);
         notifyListeners();
-        data.status == "error"
+        _postpaidStatus == "error"
             ? showDialog(
                 context: context,
                 builder: (BuildContext context) {
+                  print(jsonData["details"]['errortext']);
                   return AlertDialog(
                     title: const Text("Message"),
-                    content: Text(data.details.message),
+                    content: Text(jsonData["details"]['errortext']),
                     actions: <Widget>[
                       InkWell(
                         child: Text(
@@ -422,9 +436,38 @@ class RechargeProvider extends ChangeNotifier {
                       )
                     ],
                   );
-                })
-            : Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const PostpaidPageScreen()));
+                }):
+                showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text("Message"),
+                    content: Text("Bill Amount: ${jsonData["details"]['billAmount']}"),
+                    actions: <Widget>[
+                      InkWell(
+                        child: Container(height: 30,width: 80,decoration: BoxDecoration(color: appColor,borderRadius: BorderRadius.circular(5)),
+                          child: Center(
+                            child: Text(
+                              "Pay",
+                              style: GoogleFonts.inter(
+                                  color: white, fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => MobileAuthenticateScreen(
+                                        amount: jsonData["details"]['billAmount'])));
+                        },
+                      )
+                    ],
+                  );
+                });
+                // 9940102949
+            // : Navigator.push(context,
+                // MaterialPageRoute(builder: (_) => const PostpaidPageScreen()));
       } else {
         setLoading(false);
         Utils.toastMessage('Failed - Please try again');

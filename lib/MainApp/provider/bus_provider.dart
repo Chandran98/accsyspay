@@ -10,6 +10,7 @@ import '../Models/bus_modal/after_seat_layout_modal.dart/cancellation_ticket_mod
 import '../Models/bus_modal/after_seat_layout_modal.dart/ticket_history_modal.dart';
 import '../Models/bus_modal/available_bus_modal.dart';
 import '../Models/bus_modal/cancel_ticket_data_modal.dart';
+import '../Models/bus_modal/newModel/bus_detail_model.dart';
 import '../Models/bus_modal/print_ticket_modal.dart';
 import '../Models/bus_modal/seat_layout_modal.dart';
 import '../Models/status_check_modal.dart';
@@ -40,7 +41,13 @@ class BusBookingProvider extends ChangeNotifier {
   String journeyDate = "";
   String travelsName = "";
 
-  List<Map<String, dynamic>> availableTrips = [];
+String   _source="";
+String _destination="";
+String _doj="";
+String _inventoryType="";
+String _routeScheduleId="";
+
+  BusDetails availableTrips;
 
   ///////////////////////// --------------------------------  //////////////////////////////////
 
@@ -98,15 +105,10 @@ class BusBookingProvider extends ChangeNotifier {
     final response = await http.get(Uri.parse(AppURl.seatSellerCities));
 
     if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
-      _cities = data
-          .map((item) => City(
-                id: item['id'],
-                cityName: item['cityName'],
-                aliasNames: List<String>.from(item['aliasNames']),
-              ))
-          .toList();
-
+      final data = jsonDecode(response.body);
+      final wdata = BusCities.fromJson(data);
+      print(wdata.cities);
+      _cities = wdata.cities;
       notifyListeners();
     } else {
       print('Failed to fetch cities');
@@ -115,8 +117,8 @@ class BusBookingProvider extends ChangeNotifier {
 
   Future<AvailableBusModal> seatAvailableTrips(
       City from, City to, date, context) async {
-    sourceCity = from.cityName.toString();
-    destinationCity = to.cityName.toString();
+    sourceCity = from.name.toString();
+    destinationCity = to.name.toString();
     journeyDate = date;
     source = from.id.toString();
     destination = to.id.toString();
@@ -131,45 +133,14 @@ class BusBookingProvider extends ChangeNotifier {
     setLoading(true);
     try {
       final response = await http.post(Uri.parse(apiUrl), body: body);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         setLoading(false);
         var jsonData = jsonDecode(response.body);
         print(jsonData);
-        // var data = AvailableBusModal.fromJson(jsonData);
-        print("dsafdf");
-        // availableTrips=data.details.availableTrips.cast<AvailableBusModal>();
-        // data.status == "success"
-        //     ? Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //             builder: (_) => AvailableBusData(
-        //                   fromI: from,
-        //                   toI: to,
-        //                   dateI: date,
-        //                 )))
-        //     : showDialog(
-        //         context: context,
-        //         builder: (BuildContext context) {
-        //           return AlertDialog(
-        //             title: const Text("Message"),
-        //             content: Text(jsonData["message"]),
-        //             actions: <Widget>[
-        //               InkWell(
-        //                 child: Text(
-        //                   "Close",
-        //                   style: GoogleFonts.inter(
-        //                       color: PrimaryColor, fontWeight: FontWeight.w600),
-        //                 ),
-        //                 onTap: () {
-        //                   Navigator.of(context).pop();
-        //                 },
-        //               )
-        //             ],
-        //           );
-        //         });
 
-        availableTrips = List<Map<String, dynamic>>.from(
-            jsonData['details']['availableTrips']);
+        availableTrips = BusDetails.fromJson(jsonData);
+        print(availableTrips);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -182,7 +153,7 @@ class BusBookingProvider extends ChangeNotifier {
         notifyListeners();
       } else {
         setLoading(false);
-        Utils.toastMessage('Failed to load wallet history');
+        Utils.toastMessage('Failed to load bus Data');
       }
     } catch (e) {
       print("error$e");
@@ -191,22 +162,35 @@ class BusBookingProvider extends ChangeNotifier {
     }
   }
 
-  Future<SeatLayoutModal> fetchSeatLayout(id, travels, context) async {
+  Future<SeatLayoutModal> fetchSeatLayout(
+      from, to, doj, inventoryType, routeScheduleId, context) async {
     setLoading(true);
-    _busId = id;
-    travelsName = travels;
+    // _busId = id;
+    // travelsName = travels;
 
     final url = AppURl.seatSellerSeatLayout;
+    _source=from;
+    _destination=to;
+    _doj=doj.toString();
+    _inventoryType=inventoryType.toString();
+    _routeScheduleId=routeScheduleId.toString();
     try {
-      final body = {"id": id};
+      final body = {
+        'source': from,
+        'destination': to,
+        'doj': doj.toString(),
+        "inventoryType": inventoryType.toString(),
+        "routeScheduleId": routeScheduleId.toString()
+      };
       // final body = {"id": "2000005545830099438"};
-      print(id);
+      print(body);
 
       var _boardingCities = [];
 
       var _departingCities = [];
       final response = await http.post(Uri.parse(url), body: body);
-
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         setLoading(false);
         print(233424);
@@ -217,18 +201,19 @@ class BusBookingProvider extends ChangeNotifier {
         var layoutDetails = responseData["details"];
         var layoutSeat = layoutDetails["layout"];
 
-        layoutDetails["boardingTimes"] is List
-            ? _boardingCities = layoutDetails["boardingTimes"]
-            : _boardingCities.add(layoutDetails["boardingTimes"]);
+        layoutDetails["boardingPoints"] is List
+            ? _boardingCities = layoutDetails["boardingPoints"]
+            : _boardingCities.add(layoutDetails["boardingPoints"]);
 
-        layoutDetails["droppingTimes"] is List
-            ? _departingCities = layoutDetails["droppingTimes"]
-            : _departingCities.add(layoutDetails["droppingTimes"]);
+        layoutDetails["droppingPoints"] is List
+            ? _departingCities = layoutDetails["droppingPoints"]
+            : _departingCities.add(layoutDetails["droppingPoints"]);
 
         boardingPlaces = _boardingCities;
         departingPlaces = _departingCities;
 
         _busDetails = layoutDetails;
+        print("boardingPlaces ${layoutDetails["boardingPoints"]}");
 
         Navigator.push(
             context,
@@ -260,12 +245,24 @@ class BusBookingProvider extends ChangeNotifier {
     _totalFare = fare;
     final apiUrl = AppURl.seatSellerBlockTicket;
     final body = {
-      "availableTripId": _busId,
-      'source': source,
-      'destination': destination,
-      "boardingPointId": bp,
+      "sourceCity": _source,
+      "destinationCity": _destination,
+      "doj": _doj,
+      "routeScheduleId": _routeScheduleId,
+    "inventoryType": _inventoryType,
+      "customerName": "test",
+      "customerLastName": "testing",
+      "customerEmail": "test@gmail.com",
+      "customerPhone": "9999999999",
+      "emergencyPhNumber": "8888888888",
+      "customerAddress": "kphp",
+      "boardingPoint": {
+        "id": bp["id"],
+        "location":bp["location"],
+        "time": bp["time"]
+      },
       // "droppingPointId": dp,
-      "inventoryItems": userList
+      "blockSeatPaxDetails": userList
     };
     print(json.encode(body));
     setLoading(true);
@@ -275,6 +272,8 @@ class BusBookingProvider extends ChangeNotifier {
       final response =
           await http.post(Uri.parse(apiUrl), body: json.encode(body));
       print(8723332237);
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         print(87790900);
         setLoading(false);
@@ -283,7 +282,8 @@ class BusBookingProvider extends ChangeNotifier {
         _blockTicketKey = resultData.message;
         print(resultData.message);
         resultData.status == "success"
-            ? Navigator.push(context,
+            ?
+             Navigator.push(context,
                 MaterialPageRoute(builder: (_) => const BlockTicketPage()))
             : showDialog(
                 context: context,

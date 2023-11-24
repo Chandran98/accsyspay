@@ -128,6 +128,7 @@ class WalletProvider extends ChangeNotifier {
     setLoading(true);
     try {
       final response = await http.post(Uri.parse(apiUrl), body: body);
+      print("userIdadsa");
       if (response.statusCode == 200) {
         setLoading(false);
         final jsonData = jsonDecode(response.body) as List<dynamic>;
@@ -304,23 +305,26 @@ class WalletProvider extends ChangeNotifier {
                     },
                   );
                 })
-            : {showDialog(
-                context: context,
-                builder: (builder) {
-                  return CustomAlertDialog(
-                    message: data.message,
-                    lottie: Lottie.asset("assets/lottie/pays.json"),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const MainScreen()));
-                    },
-                  );
-                }),
-        NotificationService().showNotification(
-            title: 'ACCSYS To INR',
-            body: 'You have successfully converted $amount ACCSYS to INR')};
+            : {
+                showDialog(
+                    context: context,
+                    builder: (builder) {
+                      return CustomAlertDialog(
+                        message: data.message,
+                        lottie: Lottie.asset("assets/lottie/pays.json"),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const MainScreen()));
+                        },
+                      );
+                    }),
+                NotificationService().showNotification(
+                    title: 'ACCSYS To INR',
+                    body:
+                        'You have successfully converted $amount ACCSYS to INR')
+              };
 
         notifyListeners();
       } else {

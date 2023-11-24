@@ -455,7 +455,7 @@ class _RechargePaymentPageState extends State<RechargePaymentPage> {
                                 // txId,
                                 context);
                           },
-                          title: "Proceed To Recharge",
+                          title: "Proceed To Payment",
                           loader: recharge.loading,
                           color: white,
                         ),

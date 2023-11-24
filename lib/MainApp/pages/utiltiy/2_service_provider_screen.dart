@@ -145,16 +145,21 @@ class _BillerScreenState extends State<BillerScreen> {
                             return InkWell(
                                 onTap: () {
                                   _textcontroller.clear();
-                                  provider.getBillerParams(
-                                      data.billerId, context);
-
+                                  // provider.getBillerParams(
+                                  //     data.billerId, context);
+                                  print(data.optional2);
+                                  print("object");
+                                  print(data.optional1);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => UtilityFetchScreen(
-                                              name: data.billerName,
-                                              id: data.billerId,
-                                              mode: data.billerMode)));
+                                                name: data.service,
+                                                id: data.code,
+                                                mode: data.param,
+                                                optional1: data.optional1,
+                                                optional2: data.optional2,
+                                              )));
                                 },
                                 child: Container(
                                   decoration: boxDecoration(
@@ -173,7 +178,7 @@ class _BillerScreenState extends State<BillerScreen> {
                                             color: Sticky.getColorItem()),
                                         child: Center(
                                             child: Text(
-                                          data.billerName[0],
+                                          data.service[0],
                                           style: GoogleFonts.inter(
                                               color: white,
                                               fontSize: 16,
@@ -181,7 +186,7 @@ class _BillerScreenState extends State<BillerScreen> {
                                         )),
                                       ),
                                       title: Text(
-                                        data.billerName,
+                                        data.service,
                                         style: GoogleFonts.inter(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600),

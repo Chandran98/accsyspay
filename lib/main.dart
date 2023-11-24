@@ -10,6 +10,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'MainApp/pages/bus_booking/bus_screen/1_search_cities.dart';
+import 'MainApp/pages/recharge/prepaid_recharge/mobile_recharge.dart';
 import 'MainApp/provider/bus_provider.dart';
 import 'MainApp/provider/dth_provider.dart';
 import 'MainApp/provider/recharge_provider.dart';
@@ -49,6 +50,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
+
   // const MyApp({Key key}) : super(key:5 key);
 
   @override
@@ -59,7 +62,7 @@ class MyApp extends StatelessWidget {
           theme: Provider.of<ThemeProvider>(context).darkTheme
               ? darkMode
               : lightMode,
-          // home: Jokeer());
+          // home: MobileRechargeScreen());
           // home: const SearchCities());
           home: SplashScreen());
     });

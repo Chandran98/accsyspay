@@ -11,3 +11,10 @@ enum SeatState {
   disabled,
   empty,
 }
+
+
+enum SeatType {
+  sleeper,
+  seater,
+  none
+}

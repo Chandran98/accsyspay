@@ -13,6 +13,7 @@ import '../../../provider/themeprovider.dart';
 import '../../../utils/Card.dart';
 import '../../../utils/app_bar.dart';
 import '../../../utils/main_app_utils.dart';
+import '../mobile_pin_screen.dart';
 
 class PostpaidPageScreen extends StatefulWidget {
   const PostpaidPageScreen({Key key}) : super(key: key);
@@ -33,7 +34,7 @@ class _PostpaidPageScreenState extends State<PostpaidPageScreen> {
     var provider = Provider.of<RechargeProvider>(context);
     var theme = Provider.of<ThemeProvider>(context);
     var postPaid =
-        Provider.of<RechargeProvider>(context, listen: false).postpaid;
+        Provider.of<RechargeProvider>(context, listen: false).postPaidBillAmount;
     void onBack() {
       // ignore: prefer_const_constructors
       Navigator.of(context).pop();
@@ -46,9 +47,7 @@ class _PostpaidPageScreenState extends State<PostpaidPageScreen> {
       },
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: theme.darkTheme
-              ? appColor.withOpacity(0.1)
-              : const Color(0xFFEFF3FD),
+          backgroundColor: theme.darkTheme?appColor.withOpacity(0.1): const Color(0xFFEFF3FD),
           // appBar: AppBar(),
 
           body: provider.postpaidStatus == "error"
@@ -68,49 +67,49 @@ class _PostpaidPageScreenState extends State<PostpaidPageScreen> {
                             radius: 10,
                             showShadow: true,
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              top: 8.0,
-                            ),
-                            child: ListTile(
-                              tileColor: theme.darkTheme ? black : white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)),
-                              subtitle: Text(
-                                provider.mobile,
-                                style: GoogleFonts.inter(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              leading: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Sticky.getColorItem()),
-                                child: Center(
-                                    child: Text(
-                                  postPaid.details.name[0],
-                                  style: GoogleFonts.inter(
-                                      color: white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w600),
-                                )),
-                              ),
-                              title: Text(
-                                postPaid.details.name,
-                                style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
+                          // child: Padding(
+                          //   padding: const EdgeInsets.only(
+                          //     top: 8.0,
+                          //   ),
+                          //   child: ListTile(
+                          //     tileColor: theme.darkTheme?black:white,
+                          //     shape: RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.circular(12)),
+                          //     subtitle: Text(
+                          //       provider.mobile,
+                          //       style:  GoogleFonts.inter(
+                          //           color: Colors.grey,
+                          //           fontWeight: FontWeight.w500),
+                          //     ),
+                          //     leading: Container(
+                          //       height: 50,
+                          //       width: 50,
+                          //       decoration: BoxDecoration(
+                          //           shape: BoxShape.circle,
+                          //           color: Sticky.getColorItem()),
+                          //       child: Center(
+                          //           child: Text(
+                          //         postPaid.details.name[0],
+                          //         style:  GoogleFonts.inter(
+                          //             color: white,
+                          //             fontSize: 17,
+                          //             fontWeight: FontWeight.w600),
+                          //       )),
+                          //     ),
+                          //     title: Text(
+                          //       postPaid.details.name,
+                          //       style:  GoogleFonts.inter(
+                          //         fontWeight: FontWeight.w600,
+                          //         fontSize: 18,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ),
                         spacer10Height,
                         Container(
                           decoration: BoxDecoration(
-                              color: theme.darkTheme ? black : white,
+                              color: theme.darkTheme?black:white,
                               borderRadius: BorderRadius.circular(12)),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -118,7 +117,7 @@ class _PostpaidPageScreenState extends State<PostpaidPageScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
+                                 Padding(
                                   padding: EdgeInsets.only(left: 8.0, top: 6),
                                   child: Text(
                                     "Bill Details",
@@ -153,7 +152,7 @@ class _PostpaidPageScreenState extends State<PostpaidPageScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
+                                       Text(
                                         "Amount",
                                         style: GoogleFonts.inter(
                                             fontSize: 14,
@@ -162,9 +161,7 @@ class _PostpaidPageScreenState extends State<PostpaidPageScreen> {
                                       ),
                                       Container(
                                         decoration: BoxDecoration(
-                                            color: theme.darkTheme
-                                                ? appColor.withOpacity(0.1)
-                                                : const Color(0xFFEFF3FD),
+                                            color: theme.darkTheme?appColor.withOpacity(0.1):const Color(0xFFEFF3FD),
                                             borderRadius:
                                                 BorderRadius.circular(5)),
                                         height: 70,
@@ -172,7 +169,7 @@ class _PostpaidPageScreenState extends State<PostpaidPageScreen> {
                                         child: Center(
                                           child: Text(
                                             postPaid.details.amount,
-                                            style: GoogleFonts.inter(
+                                            style:  GoogleFonts.inter(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w600),
                                           ),
@@ -202,7 +199,7 @@ class _PostpaidPageScreenState extends State<PostpaidPageScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => RechargePaymentPage(
+                                    builder: (_) => MobileAuthenticateScreen(
                                         amount: postPaid.details.amount)));
                           },
                           child: Container(

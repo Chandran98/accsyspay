@@ -18,6 +18,7 @@ import '../../../utils/app_bar.dart';
 import '../../../utils/buttons/custom_button.dart';
 import '../../../utils/main_app_utils.dart';
 import '4_dth_recharge_screen.dart';
+import '5_dth_pin_screen.dart';
 
 class DthAccountInfoPage extends StatefulWidget {
   const DthAccountInfoPage({Key key}) : super(key: key);
@@ -233,7 +234,7 @@ class _DthAccountInfoPageState extends State<DthAccountInfoPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => DthRechargeScreen(
+                                        builder: (_) => FastagDthAuthenticateScreen(
                                               title: "Dth",
                                               amount: _amountController.text,
                                             )));

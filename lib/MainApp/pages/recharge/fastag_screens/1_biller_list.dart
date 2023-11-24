@@ -28,6 +28,7 @@ class _FastagBillerScreenState extends State<FastagBillerScreen> {
     // TODO: implement dispose
     super.dispose();
     _textcontroller.text;
+    
   }
 
   @override
@@ -146,16 +147,17 @@ class _FastagBillerScreenState extends State<FastagBillerScreen> {
                             return InkWell(
                                 onTap: () {
                                   _textcontroller.clear();
-                                  provider.getBillerParams(
-                                      data.billerId, context);
+                                  // provider.getBillerParams(
+                                  //     data.billerId, context);
 
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => FastagFetchScreen(
-                                              name: data.billerName,
-                                              id: data.billerId,
-                                              mode: data.billerMode)));
+                                              name: data.service,
+                                              id: data.code,
+                                              mode: data.param
+                                              )));
                                 },
                                 child: Container(
                                   decoration: boxDecoration(
@@ -174,7 +176,7 @@ class _FastagBillerScreenState extends State<FastagBillerScreen> {
                                             color: Sticky.getColorItem()),
                                         child: Center(
                                             child: Text(
-                                          data.billerName[0],
+                                          data.service[0],
                                           style: GoogleFonts.inter(
                                               color: white,
                                               fontSize: 16,
@@ -182,7 +184,7 @@ class _FastagBillerScreenState extends State<FastagBillerScreen> {
                                         )),
                                       ),
                                       title: Text(
-                                        data.billerName,
+                                        data.service,
                                         style: GoogleFonts.inter(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600),

@@ -11,11 +11,12 @@ import '/../../../pages/screens.dart';
 
 
 class FastagFetchScreen extends StatefulWidget {
-  FastagFetchScreen({Key key, this.id, this.mode, this.name})
-      : super(key: key);
-  String id;
+    String id;
   String mode;
   String name;
+  FastagFetchScreen({Key key, this.id, this.mode, this.name})
+      : super(key: key);
+
 
   @override
   State<FastagFetchScreen> createState() => _FastagFetchScreenState();
@@ -91,7 +92,7 @@ class _FastagFetchScreenState extends State<FastagFetchScreen> {
                               // ),
                               spacer20Height,
                               Text(
-                                provider.paramsModal[0].details[0].name,
+                                widget.mode,
                                 style: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w500),
                               ),
@@ -103,35 +104,35 @@ class _FastagFetchScreenState extends State<FastagFetchScreen> {
                                 controller: _params2controller,
                               ),
                               spacer20Height,
-                              Text(
-                                provider.paramsModal.length == 2
-                                    ? provider.paramsModal[1].details[1].name
-                                    : "",
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w500),
-                              ),
-                              spacer10Height,
-                              provider.paramsModal.length == 2
-                                  ? TextFormField(
-                                      decoration: const InputDecoration(
-                                          border: OutlineInputBorder()),
-                                      controller: _params3controller,
-                                    )
-                                  : const SizedBox(),
+                              // Text(
+                              //   provider.paramsModal.length == 2
+                              //       ? provider.paramsModal[1].details[1].name
+                              //       : "",
+                              //   style: const TextStyle(
+                              //       fontSize: 16, fontWeight: FontWeight.w500),
+                              // ),
+                              // spacer10Height,
+                              // provider.paramsModal.length == 2
+                              //     ? TextFormField(
+                              //         decoration: const InputDecoration(
+                              //             border: OutlineInputBorder()),
+                              //         controller: _params3controller,
+                              //       )
+                              //     : const SizedBox(),
                             ],
                           ),
                         ),
                       ),spacer50Height,
                       CustomBottomButton(title: "Proceed",loader: provider.loading,onTap: (){
                                 provider.fastagBiller(
-                                    widget.id,
-                                    provider.paramsModal[0].details[0].name,
-                                    provider.paramsModal.length == 2
-                                        ? provider
-                                            .paramsModal[1].details[1].name
-                                        : "",
+                                    widget.id,widget.mode,
+                                    // provider.paramsModal[0].details[0].name,
+                                    // provider.paramsModal.length == 2
+                                    //     ? provider
+                                    //         .paramsModal[1].details[1].name
+                                    //     : "",
                                     _params2controller.text,
-                                    _params3controller.text,
+                                    // _params3controller.text,
                                     context);},),
                     ],
                   ),

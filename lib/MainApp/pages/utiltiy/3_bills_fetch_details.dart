@@ -8,11 +8,12 @@ import '../../utils/main_app_utils.dart';
 import '../setting_screen/faq_screen.dart';
 
 class UtilityFetchScreen extends StatefulWidget {
-  UtilityFetchScreen({Key key, this.id, this.mode, this.name})
+  UtilityFetchScreen(
+      {Key key, this.id, this.mode, this.optional1, this.optional2, this.name})
       : super(key: key);
   String id;
   String mode;
-  String name;
+  String name, optional1, optional2;
 
   @override
   State<UtilityFetchScreen> createState() => _UtilityFetchScreenState();
@@ -21,6 +22,8 @@ class UtilityFetchScreen extends StatefulWidget {
 class _UtilityFetchScreenState extends State<UtilityFetchScreen> {
   final _params2controller = TextEditingController();
   final _params3controller = TextEditingController();
+  final _params4controller = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +104,7 @@ class _UtilityFetchScreenState extends State<UtilityFetchScreen> {
                               // ),
                               spacer20Height,
                               Text(
-                                provider.paramsModal[0].details[0].name,
+                                widget.mode,
                                 style: TextStyle(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w500),
@@ -115,21 +118,56 @@ class _UtilityFetchScreenState extends State<UtilityFetchScreen> {
                               ),
                               spacer20Height,
                               Text(
-                                provider.paramsModal.length == 2
-                                    ? provider.paramsModal[1].details[1].name
-                                    : "",
+                                widget.optional1,
                                 style: TextStyle(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w500),
                               ),
+
                               spacer10Height,
-                              provider.paramsModal.length == 2
-                                  ? TextFormField(
+                              widget.optional1 == ""
+                                  ? SizedBox()
+                                  : TextFormField(
                                       decoration: const InputDecoration(
-                                          border: OutlineInputBorder()),
+                                          border: OutlineInputBorder(),
+                                          hintText: '********'),
                                       controller: _params3controller,
-                                    )
-                                  : const SizedBox(),
+                                    ),
+                              spacer20Height, 
+                             widget.optional2 == ""
+                                  ? SizedBox()
+                                  :  Text(
+                                widget.optional2,
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500),
+                              ),
+
+                              spacer10Height,
+                              widget.optional2 == ""
+                                  ? SizedBox()
+                                  : TextFormField(
+                                      decoration: const InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: '********'),
+                                      controller: _params4controller,
+                                    ),
+                              // Text(
+                              //   provider.paramsModal.length == 2
+                              //       ? provider.paramsModal[1].details[1].name
+                              //       : "",
+                              //   style: TextStyle(
+                              //       fontSize: 12.sp,
+                              //       fontWeight: FontWeight.w500),
+                              // ),
+                              // spacer10Height,
+                              // provider.paramsModal.length == 2
+                              //     ? TextFormField(
+                              //         decoration: const InputDecoration(
+                              //             border: OutlineInputBorder()),
+                              //         controller: _params3controller,
+                              //       )
+                              //     : const SizedBox(),
                             ],
                           ),
                         ),
@@ -142,11 +180,12 @@ class _UtilityFetchScreenState extends State<UtilityFetchScreen> {
                           onTap: () {
                             provider.fetchAmountBiller(
                                 widget.id,
-                                provider.paramsModal[0].details[0].name,
-                                provider.paramsModal.length == 2
-                                    ? provider.paramsModal[1].details[1].name
-                                    : "",
-                                _params2controller.text,
+                                widget.mode,
+                                // provider.paramsModal[0].details[0].name,
+                                // provider.paramsModal.length == 2
+                                //     ? provider.paramsModal[1].details[1].name
+                                //     : "",
+                                _params2controller.text,widget.optional1,
                                 _params3controller.text,
                                 context);
                           },

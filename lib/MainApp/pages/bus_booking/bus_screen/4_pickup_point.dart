@@ -59,8 +59,8 @@ class _BoardingPointState extends State<BoardingPoint> {
                               builder: (_) => DroppingPoint(
                                   totalAmount: widget.totalAmount,
                                   seatData: widget.seatData,
-                                  id: cityProvider.boardingPlaces[index]
-                                      ["bpId"])));
+                                  bp: cityProvider.boardingPlaces[index]
+                                      )));
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -71,13 +71,13 @@ class _BoardingPointState extends State<BoardingPoint> {
                             color: black,
                           ),
                           title: Text(
-                            cityProvider.boardingPlaces[index]["address"],
+                            cityProvider.boardingPlaces[index]["location"],
                             style: const TextStyle(color: black, fontSize: 15),
                           ),
                           subtitle: Row(
                             children: [
                               Text(
-                                cityProvider.boardingPlaces[index]["location"],
+                                cityProvider.boardingPlaces[index]["time"],
                                 style:
                                     const TextStyle(color: gray, fontSize: 13),
                               ),
@@ -101,9 +101,9 @@ class _BoardingPointState extends State<BoardingPoint> {
 }
 
 class DroppingPoint extends StatefulWidget {
-  String id, totalAmount;
+  var bp, totalAmount;
   List seatData;
-  DroppingPoint({Key key, this.id, this.totalAmount, this.seatData})
+  DroppingPoint({Key key, this.bp, this.totalAmount, this.seatData})
       : super(key: key);
 
   @override
@@ -116,6 +116,7 @@ class _DroppingPointState extends State<DroppingPoint> {
     final cityProvider =
         Provider.of<BusBookingProvider>(context, listen: false);
     var theme = Provider.of<ThemeProvider>(context);
+  
 
     return Scaffold(
       appBar: AppBar(
@@ -154,15 +155,14 @@ class _DroppingPointState extends State<DroppingPoint> {
                                 builder: (_) => BlockScreen(
                                     totalAmount: widget.totalAmount,
                                     seat: widget.seatData,
-                                    bp: widget.id,
+                                    bp: widget.bp,
                                     dp: cityProvider.boardingPlaces[index]
-                                        ["bpId"])));
+                                        )));
                       },
                       title:
-                          Text(cityProvider.departingPlaces[index]["address"]),
+                          Text(cityProvider.departingPlaces[index]["location"]),
                       subtitle: Text(
-                        cityProvider.boardingPlaces[index]["location"]
-                            .toString(),
+                        cityProvider.boardingPlaces[index]["time"].toString(),
                         style: const TextStyle(color: gray, fontSize: 13),
                       )),
                 );
@@ -173,7 +173,7 @@ class _DroppingPointState extends State<DroppingPoint> {
 }
 
 class BlockScreen extends StatefulWidget {
-  String bp, dp, totalAmount;
+  var bp, dp, totalAmount;
   List seat;
   BlockScreen({this.bp, this.totalAmount, this.dp, this.seat});
 
@@ -204,6 +204,7 @@ class _BlockScreenState extends State<BlockScreen> {
   String seatDropDownValue;
   List userList = [];
   String selectedTotalFare = "";
+  String baseFare = "";
   String ladiesSeat = "";
 
   getSelectedSeat(String seatNo) {
@@ -253,7 +254,7 @@ class _BlockScreenState extends State<BlockScreen> {
                               return Card(
                                 child: ListTile(
                                   tileColor: appColor.withOpacity(0.1),
-                                  title: Text(userList[index]["passenger"]
+                                  title: Text(userList[index]
                                           ["name"]
                                       .toString()),
                                   subtitle: Column(
@@ -266,7 +267,7 @@ class _BlockScreenState extends State<BlockScreen> {
                                           Text(
                                               "Seat No.${userList[index]["seatName"].toString()}"),
                                           Text(
-                                              "Amount. ${userList[index]["fare"].toString()}"),
+                                              "Amount. ${userList[index]["totalFareWithTaxes"].toString()}"),
                                         ],
                                       ),
                                     ],
@@ -461,12 +462,12 @@ class _BlockScreenState extends State<BlockScreen> {
                                                 final bool isEnabled =
                                                     seatDropDownValue == null ||
                                                         seatDropDownValue !=
-                                                            items['seatNo'];
+                                                            items["seatNo"].toString();
                                                 return DropdownMenuItem(
                                                   enabled: isEnabled,
-                                                  value: items['seatNo'],
+                                                  value: items["seatNo"].toString(),
                                                   child: Text(
-                                                    items["seatNo"],
+                                                    items["seatNo"].toString(),
                                                     style: GoogleFonts.inter(
                                                         color: black,
                                                         fontSize: 14,
@@ -482,9 +483,12 @@ class _BlockScreenState extends State<BlockScreen> {
                                                       getSelectedSeat(newValue);
                                                   selectedTotalFare =
                                                       selectedSeat[
-                                                          'total_fare'];
+                                                          'total_fare'].toString();
                                                   ladiesSeat = selectedSeat[
-                                                      'ladiesSeat'];
+                                                      'ladiesSeat'].toString();
+                                                      baseFare=
+                                                      selectedSeat[
+                                                          'base_fare'].toString();
                                                 });
                                               },
                                             ),
@@ -593,29 +597,28 @@ class _BlockScreenState extends State<BlockScreen> {
                                             "Please select seat No.")
                                         : userList.add(
                                             {
-                                              "fare": selectedTotalFare,
+                                              "age": _ageController.text.trim(),
+                                              "name":
+                                                  _nameController.text.trim(),
+                                              "seatNbr": seatDropDownValue,
+                                              "sex": genderValue,
+                                              "fare": num.tryParse(baseFare),
+                                              "totalFareWithTaxes": num.tryParse(selectedTotalFare),
                                               "ladiesSeat": ladiesSeat,
-                                              "passenger": {
-                                                "address": _addressController
-                                                    .text
-                                                    .trim(),
-                                                "age":
-                                                    _ageController.text.trim(),
-                                                "email": _emailController.text
-                                                    .trim(),
-                                                "gender": genderValue,
-                                                "idNumber":
-                                                    _idNoController.text.trim(),
-                                                "idType": _idTypeController.text
-                                                    .trim(),
-                                                "mobile": _mobileController.text
-                                                    .trim(),
-                                                "name":
-                                                    _nameController.text.trim(),
-                                                "primary": "true",
-                                                "title": titleValue
-                                              },
-                                              "seatName": seatDropDownValue
+                                              "lastName": "test456",
+                                              "mobile":
+                                                  _mobileController.text.trim(),
+                                              "title": titleValue,
+                                              "email":
+                                                  _emailController.text.trim(),
+                                              "idType": "PAN",
+                                              "idNumber":
+                                                  _idNoController.text.trim(),
+                                              "nameOnId":
+                                                  _idTypeController.text.trim(),
+                                              "primary": "true",
+                                              "ac": false,
+                                              "sleeper": false
                                             },
                                           );
                                     print(userList);
