@@ -89,23 +89,23 @@ class SeatLayoutWidget extends StatelessWidget {
 
   SeatState _getSeatState(row, col, List<dynamic> seats) {
     for (var i = 0; i < seats.length; i++) {
-      if (seats[i]['row'] == row.toString() &&
-          seats[i]['column'] == col.toString()) {
-        if (seats[i]['ladiesSeat'] == "true" &&
-            seats[i]['available'] == "true") {
+      if (seats[i]['row'] == row && seats[i]['column'] == col) {
+        if (seats[i]['ladiesSeat'] == true && seats[i]['available'] == true) {
           return SeatState.femaleSeatUnselected;
-        } else if (seats[i]['ladiesSeat'] == "true" &&
-            seats[i]['available'] == "false") {
+        } 
+        else if (seats[i]['ladiesSeat'] == true &&seats[i]['available'] == false) {
           return SeatState.femaleSeatSold;
-        } else if (seats[i]['maleSeat'] == "true" &&
-            seats[i]['available'] == "true") {
+        } 
+        else if (seats[i]['maleSeat'] == true && seats[i]['available'] == "true") {
           return SeatState.maleSeatUnselected;
-        } else if (seats[i]['maleSeat'] == "true" &&
-            seats[i]['available'] == "false") {
+        } 
+        else if (seats[i]['maleSeat'] == true && seats[i]['available'] == false) {
           return SeatState.maleSeatSold;
-        } else if (seats[i]['available'] == "true") {
+        } 
+        else if (seats[i]['available'] == true) {
           return SeatState.unselected;
-        } else if (seats[i]['available'] == "false") {
+        } 
+        else if (seats[i]['available'] == false) {
           return SeatState.sold;
         }
       }
@@ -114,13 +114,13 @@ class SeatLayoutWidget extends StatelessWidget {
   }
 
   SeatType _getSeatType(row, col, List<dynamic> sleeper, List<dynamic> seater) {
-    bool isSleeper = sleeper.any(
-        (e) => e['row'] == row.toString() && e['column'] == col.toString());
-    bool isSeater = seater.any(
-        (e) => e['row'] == row.toString() && e['column'] == col.toString());
+    bool isSleeper = sleeper.any((e) => e['row'] == row && e['column'] == col);
+    bool isSeater = seater.any((e) => e['row'] == row && e['column'] == col);
+
     if (isSleeper) {
       return SeatType.sleeper;
-    } else if (isSeater) {
+    } 
+    else if (isSeater) {
       return SeatType.seater;
     }
     return SeatType.none;

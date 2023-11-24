@@ -120,26 +120,29 @@ class _SeatWidgetState extends State<SeatWidget> {
           }
         },
         child: seatState != SeatState.empty
-            ? Container(
-                // color: Colors.red,
-                margin: type == SeatType.seater
-                    ? EdgeInsets.symmetric(vertical: 0.01.h, horizontal: 0.5.w)
-                    : EdgeInsets.symmetric(vertical: 0.01.h, horizontal: 0.9.w),
-                height: type == SeatType.seater ? 5.3.h : 7.h,
-                width: type == SeatType.seater ? 8.5.w : 6.8.w,
-                child: Center(
-                  child: SvgPicture.asset(
-                    _getSvgPath(safeCheckedSeatState, type),
-                    height: type == SeatType.seater ? 3.5.h : 7.h,
-
-                    // width: type == SeatType.seater ? 9.5.w : 11.w,
-                    // width: type == SeatType.seater
-                    //     ? widget.model.seatSvgSize.toDouble() - 15.0
-                    //     : widget.model.seatSvgSize.toDouble(),
-                    // fit: BoxFit.cover,
+            ? Padding(
+              padding:  EdgeInsets.symmetric(horizontal:1.0.w,vertical: 0.8.h),
+              child: Container(
+                  // color: Colors.red,
+                  margin: type == SeatType.seater
+                      ? EdgeInsets.symmetric(vertical: 0.01.h, horizontal: 0.5.w)
+                      : EdgeInsets.symmetric(vertical: 0.01.h, horizontal: 0.9.w),
+                  height: type == SeatType.seater ? 5.3.h : 7.h,
+                  width: type == SeatType.seater ? 8.5.w : 6.8.w,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      _getSvgPath(safeCheckedSeatState, type),
+                      height: type == SeatType.seater ? 3.5.h : 7.h,
+            
+                      // width: type == SeatType.seater ? 9.5.w : 11.w,
+                      // width: type == SeatType.seater
+                      //     ? widget.model.seatSvgSize.toDouble() - 15.0
+                      //     : widget.model.seatSvgSize.toDouble(),
+                      // fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              )
+            )
             : SizedBox(
                 // color: Colors.black12,
                 height: 2.5.h,

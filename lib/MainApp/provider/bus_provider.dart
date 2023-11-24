@@ -41,6 +41,12 @@ class BusBookingProvider extends ChangeNotifier {
   String journeyDate = "";
   String travelsName = "";
 
+String   _source="";
+String _destination="";
+String _doj="";
+String _inventoryType="";
+String _routeScheduleId="";
+
   BusDetails availableTrips;
 
   ///////////////////////// --------------------------------  //////////////////////////////////
@@ -127,6 +133,7 @@ class BusBookingProvider extends ChangeNotifier {
     setLoading(true);
     try {
       final response = await http.post(Uri.parse(apiUrl), body: body);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         setLoading(false);
         var jsonData = jsonDecode(response.body);
@@ -146,7 +153,7 @@ class BusBookingProvider extends ChangeNotifier {
         notifyListeners();
       } else {
         setLoading(false);
-        Utils.toastMessage('Failed to load wallet history');
+        Utils.toastMessage('Failed to load bus Data');
       }
     } catch (e) {
       print("error$e");
@@ -162,6 +169,11 @@ class BusBookingProvider extends ChangeNotifier {
     // travelsName = travels;
 
     final url = AppURl.seatSellerSeatLayout;
+    _source=from;
+    _destination=to;
+    _doj=doj.toString();
+    _inventoryType=inventoryType.toString();
+    _routeScheduleId=routeScheduleId.toString();
     try {
       final body = {
         'source': from,
@@ -189,19 +201,19 @@ class BusBookingProvider extends ChangeNotifier {
         var layoutDetails = responseData["details"];
         var layoutSeat = layoutDetails["layout"];
 
-        layoutDetails["boardingTimes"] is List
-            ? _boardingCities = layoutDetails["boardingTimes"]
-            : _boardingCities.add(layoutDetails["boardingTimes"]);
+        layoutDetails["boardingPoints"] is List
+            ? _boardingCities = layoutDetails["boardingPoints"]
+            : _boardingCities.add(layoutDetails["boardingPoints"]);
 
-        layoutDetails["droppingTimes"] is List
-            ? _departingCities = layoutDetails["droppingTimes"]
-            : _departingCities.add(layoutDetails["droppingTimes"]);
+        layoutDetails["droppingPoints"] is List
+            ? _departingCities = layoutDetails["droppingPoints"]
+            : _departingCities.add(layoutDetails["droppingPoints"]);
 
         boardingPlaces = _boardingCities;
         departingPlaces = _departingCities;
 
         _busDetails = layoutDetails;
-        print(layoutSeat);
+        print("boardingPlaces ${layoutDetails["boardingPoints"]}");
 
         Navigator.push(
             context,
@@ -233,12 +245,24 @@ class BusBookingProvider extends ChangeNotifier {
     _totalFare = fare;
     final apiUrl = AppURl.seatSellerBlockTicket;
     final body = {
-      "availableTripId": _busId,
-      'source': source,
-      'destination': destination,
-      "boardingPointId": bp,
+      "sourceCity": _source,
+      "destinationCity": _destination,
+      "doj": _doj,
+      "routeScheduleId": _routeScheduleId,
+    "inventoryType": _inventoryType,
+      "customerName": "test",
+      "customerLastName": "testing",
+      "customerEmail": "test@gmail.com",
+      "customerPhone": "9999999999",
+      "emergencyPhNumber": "8888888888",
+      "customerAddress": "kphp",
+      "boardingPoint": {
+        "id": bp["id"],
+        "location":bp["location"],
+        "time": bp["time"]
+      },
       // "droppingPointId": dp,
-      "inventoryItems": userList
+      "blockSeatPaxDetails": userList
     };
     print(json.encode(body));
     setLoading(true);
@@ -248,6 +272,8 @@ class BusBookingProvider extends ChangeNotifier {
       final response =
           await http.post(Uri.parse(apiUrl), body: json.encode(body));
       print(8723332237);
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         print(87790900);
         setLoading(false);
@@ -256,7 +282,8 @@ class BusBookingProvider extends ChangeNotifier {
         _blockTicketKey = resultData.message;
         print(resultData.message);
         resultData.status == "success"
-            ? Navigator.push(context,
+            ?
+             Navigator.push(context,
                 MaterialPageRoute(builder: (_) => const BlockTicketPage()))
             : showDialog(
                 context: context,

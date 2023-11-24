@@ -81,24 +81,24 @@ class _BusBookingMainPageState extends State<BusBookingMainPage>
                             spacer20Width,
                             layouts['Seating'].isNotEmpty
                                 ? _seatLayout(
-                                    int.parse(layouts["lowerTotalColumn"]),
-                                    int.parse(layouts["lowerTotalRow"]),
+                                    layouts["lowerTotalColumn"],
+                                    layouts["lowerTotalRow"],
                                     true,
                                     true,
                                     sleeper: layouts['lower'],
                                     layoutType: "Lower Deck",
                                     seater: layouts['Seating'])
                                 : _seatLayout(
-                                    int.parse(layouts["lowerTotalColumn"]),
-                                    int.parse(layouts["lowerTotalRow"]),
+                                    layouts["lowerTotalColumn"],
+                                    layouts["lowerTotalRow"],
                                     true,
                                     true,
                                     sleeper: layouts['lower'],
                                     layoutType: "Lower Deck"),
                             spacer20Width,
                             _seatLayout(
-                                int.parse(layouts["upperTotalColumn"]),
-                                int.parse(layouts["upperTotalRow"]),
+                                layouts["upperTotalColumn"],
+                                layouts["upperTotalRow"],
                                 false,
                                 true,
                                 sleeper: layouts['upper'],
@@ -114,8 +114,8 @@ class _BusBookingMainPageState extends State<BusBookingMainPage>
                             _seatTypes(),
                             spacer20Width,
                             _seatLayout(
-                              int.parse(layouts["seatTotalColumn"].toString()),
-                              int.parse(layouts["seatTotalRow"].toString()),
+                              layouts["seatTotalColumn"],
+                              layouts["seatTotalRow"],
                               true,
                               false,
                               seater: layouts['Seating'],
@@ -193,7 +193,7 @@ class _BusBookingMainPageState extends State<BusBookingMainPage>
                                         //     fixPadding * 1.2),
                                         // alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                          color: app6Color,
+                                          color: const Color(0xFF8A2BE2),
                                           borderRadius:
                                               BorderRadius.circular(5),
                                         ),
@@ -331,7 +331,7 @@ class _BusBookingMainPageState extends State<BusBookingMainPage>
     return Padding(
       padding: EdgeInsets.only(top: 3.h, bottom: 1.8.h),
       child: Container(
-        width: 60.w,
+        // width: 30.w,
         color: white,
         child: Column(
           children: [
@@ -342,7 +342,7 @@ class _BusBookingMainPageState extends State<BusBookingMainPage>
                   border: const Border(
                       bottom: BorderSide(
                           color: Color.fromARGB(221, 221, 221, 221)))),
-              height: 8.5.h,
+              height: 8.5.h,width: 25.h,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -371,14 +371,14 @@ class _BusBookingMainPageState extends State<BusBookingMainPage>
                   setState(() {
                     selectedSeats.add(selectedSeat[0]);
                     seatNos.add(selectedSeat[0]['seatNo']);
-                    totalAmount += double.parse(selectedSeat[0]['total_fare']);
+                    totalAmount += selectedSeat[0]['total_fare'];
                     seatsCount += 1;
                   });
                 } else {
                   setState(() {
                     selectedSeats.remove(selectedSeat[0]);
                     seatNos.remove(selectedSeat[0]['seatNo']);
-                    totalAmount -= double.parse(selectedSeat[0]['total_fare']);
+                    totalAmount -= selectedSeat[0]['total_fare'];
                     seatsCount -= 1;
                   });
                 }

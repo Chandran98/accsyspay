@@ -53,7 +53,7 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
   Widget build(BuildContext context) {
     return Container(
         // alignment: Alignment.center,
-        width: 80.w,
+        // width: 90.w,
         height: 70.h,
         decoration: BoxDecoration(
             color: const Color.fromARGB(255, 255, 255, 255),
@@ -64,8 +64,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
             onSeatStateChanged: (rowI, colI, seatState) {
               dynamic selectedSeat = currentSeats
                   .where((e) =>
-                      e['row'] == rowI.toString() &&
-                      e['column'] == colI.toString())
+                      e['row'] == rowI &&
+                      e['column'] == colI)
                   .toList();
               widget.onSeatStateChanged(rowI, colI, seatState, selectedSeat);
             },
